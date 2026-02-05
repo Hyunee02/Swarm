@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e6fedc2472449cead18ef23b5cb30d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Library:
+  - m_Name: Idle
+    m_Hash: 1008081451
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Idle_0
+      m_Hash: 288431053
+      m_Sprite: {fileID: 1226440020, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1226440020, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Idle_1
+      m_Hash: 641084251
+      m_Sprite: {fileID: 2112128929, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 2112128929, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 2
+  - m_Name: Walk
+    m_Hash: 765711723
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Walk_0
+      m_Hash: 714332764
+      m_Sprite: {fileID: 298321026, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 298321026, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Walk_1
+      m_Hash: 496298698
+      m_Sprite: {fileID: 1098480518, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1098480518, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Walk_2
+      m_Hash: 77446000
+      m_Sprite: {fileID: -1547673144, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -1547673144, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Walk_3
+      m_Hash: 865766374
+      m_Sprite: {fileID: -665111276, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -665111276, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Walk_4
+      m_Hash: 771628613
+      m_Sprite: {fileID: 1454812809, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1454812809, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Walk_5
+      m_Hash: 452538067
+      m_Sprite: {fileID: 1880739006, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1880739006, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Walk_6
+      m_Hash: 66092905
+      m_Sprite: {fileID: -251829468, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -251829468, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Walk_7
+      m_Hash: 888623103
+      m_Sprite: {fileID: 1098455343, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 1098455343, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 8
+  - m_Name: Die
+    m_Hash: 20298039
+    m_CategoryList: []
+    m_OverrideEntries:
+    - m_Name: Die_0
+      m_Hash: 949602785
+      m_Sprite: {fileID: -857952988, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: -857952988, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Die_1
+      m_Hash: 262076791
+      m_Sprite: {fileID: 919511041, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 919511041, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    - m_Name: Die_2
+      m_Hash: 379037901
+      m_Sprite: {fileID: 357867104, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+      m_FromMain: 0
+      m_SpriteOverride: {fileID: 357867104, guid: 8cc474bd9ba671f47a27a6214ebbacf7, type: 3}
+    m_FromMain: 0
+    m_EntryOverrideCount: 3
+  m_PrimaryLibraryGUID: 
+  m_ModificationHash: 639059140754129967
+  m_Version: 1
