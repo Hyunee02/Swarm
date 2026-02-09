@@ -11,6 +11,11 @@ public class PlayerRenderer : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
+    public void RIdle(Vector2 dir)
+    {
+        _anim.SetBool("IsMove", false);
+    }
+
     #region 플레이어 이동
     public void RMove(Vector2 dir)
     {
@@ -23,7 +28,7 @@ public class PlayerRenderer : MonoBehaviour
     }
     #endregion
 
-    #region 대쉬
+    #region 대시
     public void RDash(Vector2 dir)
     {
         _anim.SetTrigger("OnDash");
