@@ -1,17 +1,14 @@
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class Map : MonoBehaviour
 {
-    
-    
-    private void Start()
-    {
+    [SerializeField] Transform[] Tiles;
+    [SerializeField] PlayerCtrl _player;
 
+    public void Initialize(PlayerCtrl player)
+    {
+        _player = player;
     }
 
-    private void Update()
-    {
 
-    }
 }

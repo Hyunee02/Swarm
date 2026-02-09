@@ -1,49 +1,97 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    PlayerStats _playerStats;
-    PlayerRenderer _renderer;
-    Map _map;
-
-    [SerializeField] float _dashCoolTime;
-    [SerializeField] float _timer;
-
-    float _maxPos = 20000f;
-    Vector2 playerPos;
-
-    
-    private void Start()
+    public enum PlayerState
     {
-        playerPos = transform.position;
+        Idle,
+        Move,
+        Dash,
+    }
+
+    PlayerStats _stats;
+    PlayerRenderer _renderer;
+
+    Vector3 _dir;
+    PlayerState _state;
+
+    bool IsMove;
+
+    [SerializeField] float _dash;
+    [SerializeField] float _dashCoolTime;
+
+    public void Initialize(PlayerStats stats, PlayerRenderer renderer)
+    {
+        _stats = stats;
+        _renderer = renderer;
     }
 
     private void Update()
     {
-        Move();
+        switch (_state)
+        {
+            case PlayerState.Idle:
+                break;
+
+            case PlayerState.Move:
+                Move();
+                break;
+
+            case PlayerState.Dash:
+                break;
+        }
     }
 
+    /// <summary>
+    /// Dir값 가져오기
+    /// </summary>
+    public void GetDir()
+    {
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        _dir = new Vector3(h, v).normalized;
+    }
+
+    #region 플레이어 이동
     public void Move()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+        if (_dir == Vector3.zero)
+            _state = PlayerState.Idle;
 
-        Vector3 _dir = new Vector3(h, v).normalized;
+        GetDir();
 
-        transform.position += _dir * _playerStats.Speed * Time.deltaTime;
-
-        _renderer.ChangeRenderer(_dir);
-
-        if (playerPos.x > _maxPos)
-            transform.position = playerPos;
-
+        if (IsMove)
+        {
+            transform.position += _dir * _stats.Speed * Time.deltaTime;
+            _renderer.RMove(_dir);
+        }
+        else
+            IsMove = false;
     }
+    #endregion
+
+    #region 대쉬
 
     public void Dash()
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            
+            StartCoroutine(DashRoutine());
         }
     }
+
+    IEnumerator DashRoutine()
+    {
+        GetDir();
+        float _dashSpeed = _stats.Speed * 3;
+
+        transform.position += _dir * _dashSpeed * Time.deltaTime;
+
+        _renderer.RDash(_dir);
+
+        yield return new WaitForSeconds(_dashCoolTime);
+    }
+    #endregion
 }
