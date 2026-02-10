@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Threading;
 using UnityEngine;
 
 public class PlayerCtrl : MonoBehaviour
@@ -14,10 +12,11 @@ public class PlayerCtrl : MonoBehaviour
 
     PlayerStats _stats;
     PlayerRenderer _renderer;
+    //MonsterCtrl _monster;
 
     Vector3 _dir;
     PlayerState _state = PlayerState.Idle;
-    GameObject _area;
+    [SerializeField] GameObject _area;
 
     [SerializeField] float _dashTimer;
     [SerializeField] float _dashTime;
@@ -27,7 +26,7 @@ public class PlayerCtrl : MonoBehaviour
         _stats = stats;
         _renderer = renderer;
 
-        _stats.Init();
+        _stats.Init(_area);
     }
 
     private void Update()
@@ -115,7 +114,7 @@ public class PlayerCtrl : MonoBehaviour
     #endregion
 
     #region ÇÇ°Ý
-    public void Damage(float damage)
+    public void TakeDamage(float damage)
     {
         if (_stats.Hp < 0)
             _state = PlayerState.Death;
@@ -123,14 +122,13 @@ public class PlayerCtrl : MonoBehaviour
         _stats.GetDamage(damage);
     }
 
-    public void OnTriggerEnter2D(Collider2D coll)
-    {
-        if (coll.CompareTag("Monster"))
-        {
-            
-        }
-    }
-
-
+    //public void OnTriggerEnter2D(Collider2D coll)
+    //{
+    //    if (coll.CompareTag("Monster"))
+    //    {
+    //        // 
+    //        //_monster.TakeDamage(skillDamage)
+    //    }
+    //}
     #endregion
 }

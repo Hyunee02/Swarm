@@ -1,6 +1,7 @@
 using UnityEngine;
+using DG.Tweening;
 
-public class PlayerRenderer : MonoBehaviour
+public class MonsterRenderer : MonoBehaviour
 {
     [SerializeField] SpriteRenderer _renderer;
     [SerializeField] Animator _anim;
@@ -11,27 +12,26 @@ public class PlayerRenderer : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    public void RIdle(Vector2 dir)
+    public void MRMove(Vector2 dir)
     {
-        _anim.SetBool("IsMove", false);
-    }
+        _anim.SetTrigger("IsMove");
 
-    #region 플레이어 이동
-    public void RMove(Vector2 dir)
-    {
         if (dir.x >= 0)
             _renderer.flipX = false;
         else
             _renderer.flipX = true;
-
-        _anim.SetBool("IsMove", true);
     }
-    #endregion
 
-    #region 대시
-    public void RDash(Vector2 dir)
+    public void MRDamage()
     {
-        _anim.SetTrigger("OnDash");
+        _renderer.DOColor(Color.red, 1.5f)
+                 .SetLoops(2, LoopType.Yoyo)
+                 .SetEase(Ease.Linear);
+        // 다시 원래 색으로 돌아오기
     }
-    #endregion
+
+    public void MRDeath()
+    {
+
+    }
 }
