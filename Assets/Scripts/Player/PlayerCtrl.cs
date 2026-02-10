@@ -14,26 +14,24 @@ public class PlayerCtrl : MonoBehaviour
 
     PlayerStats _stats;
     PlayerRenderer _renderer;
-    Rigidbody2D _rigid;
 
     Vector3 _dir;
     PlayerState _state = PlayerState.Idle;
     GameObject _area;
 
-    [SerializeField] float _dashCoolTime;
+    [SerializeField] float _dashTimer;
     [SerializeField] float _dashTime;
-    float _timer;
 
     public void Initialize(PlayerStats stats, PlayerRenderer renderer)
     {
         _stats = stats;
         _renderer = renderer;
+
+        _stats.Init();
     }
 
     private void Update()
     {
-        _timer += Time.deltaTime;
-
         switch (_state)
         {
             case PlayerState.Idle:
@@ -42,11 +40,17 @@ public class PlayerCtrl : MonoBehaviour
 
                 if (_dir != Vector3.zero)
                     _state = PlayerState.Move;
+
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                    StartDash();
                 break;
 
             case PlayerState.Move:
                 Move();
                 _renderer.RMove(_dir);
+
+                if (Input.GetKeyDown(KeyCode.LeftShift))
+                    StartDash();
                 break;
 
             case PlayerState.Dash:
@@ -82,34 +86,31 @@ public class PlayerCtrl : MonoBehaviour
             _state = PlayerState.Idle;
 
         transform.position += _dir * _stats.Speed * Time.deltaTime;
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            _state = PlayerState.Dash;
     }
     #endregion
 
     #region 대시
-
-    public void Dash()
+    public void StartDash()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            GetDir();
+        _dashTimer = _dashTime;
 
-            // 스피드 업
-            float _dashSpeed = _stats.Speed * 3;
+        _state = PlayerState.Dash;
+    }
 
-            float timer = 0;
-            timer += Time.deltaTime;
+    public void  Dash()
+    {
+        _dashTimer = _dashTime;
 
-            if (timer > _dashCoolTime)
-            {
-                _rigid.AddForce(_dir * _dashSpeed * Time.deltaTime);
-                timer = 0;
-            }
+        GetDir();
 
+        float dashSpeed = _stats.Speed * 3;
+
+        transform.position += _dir * dashSpeed * Time.deltaTime;
+
+        _dashTimer -= Time.deltaTime;
+
+        if (_dashTimer < 0)
             _state = PlayerState.Idle;
-        }
     }
     #endregion
 

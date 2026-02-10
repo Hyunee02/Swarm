@@ -16,6 +16,11 @@ public class PlayerStats : MonoBehaviour
     public float Hp => _hp;
     public float Level => _level;
 
+
+    public void Init()
+    {
+        _hp = _maxHp;
+    }
     
     public void GetDamage(float damage)
     {

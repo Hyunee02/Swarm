@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MonsterData", menuName = "Monster")]
+[CreateAssetMenu(fileName = "MonsterData", menuName = "Data/Monster")]
 public class MonsterStats : ScriptableObject
 {
     public float speed;
