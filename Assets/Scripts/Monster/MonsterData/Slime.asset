@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a7405beed11754bae9cf9a01a4a626, type: 3}
   m_Name: Slime
   m_EditorClassIdentifier: 
-  speed: 1.5
-  power: 3
-  maxHp: 6
-  hp: 6
-  xp: 0
-  level: 1
-  spawn: 0
+  _speed: 3
+  _power: 3
+  _maxHp: 30
+  _hp: 30
+  _xp: 0
+  _level: 0
+  _spawn: 0

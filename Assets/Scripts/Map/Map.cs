@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class Tile : MonoBehaviour
+public class Map : MonoBehaviour
 {
     [SerializeField] Transform[] _tiles;
     [SerializeField] PlayerCtrl _player;
@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
-        //MoveMap();
+        MoveMap();
     }
 
     public void MoveMap()
@@ -22,18 +22,20 @@ public class Tile : MonoBehaviour
         foreach (Transform tile in _tiles)
         {
             Vector3 tilePos = tile.transform.position;
+            Vector3 offset = playerPos - tilePos;
             Vector3 dir = (playerPos - tilePos).normalized;
 
-            if (playerPos.x > tilePos.x)
-            {
-                tile.transform.position += dir * _tileSize * 3f;
-            }
+            if (offset.x > tilePos.x / 2f)
+                tilePos.x += dir.x * _tileSize * 3f;
 
-            //if (playerPos.x < tilePos.x)
-            //{
-            //    tile.transform.position -= dir * _tileSize * 3f;
-            //}
+            if (offset.x < -tilePos.x / 2f)
+                tilePos.x -= dir.x * _tileSize * 3f;
 
+            if (offset.y > tilePos.y / 2f)
+                tilePos.y += dir.y * _tileSize * 3f;
+
+            if (offset.y < -tilePos.y / 2f)
+                tilePos.y -= dir.y * _tileSize * 3f;
         }
     }
 }

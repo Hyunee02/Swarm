@@ -131,12 +131,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 71863496}
+  - component: {fileID: 71863499}
+  - component: {fileID: 71863500}
   - component: {fileID: 71863497}
   - component: {fileID: 71863498}
-  - component: {fileID: 71863499}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,10 +187,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _area: 3
+  _area: 5
+  _power: 0
   _maxHp: 50
   _hp: 0
-  _level: 1
 --- !u!70 &71863499
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -225,6 +226,33 @@ CapsuleCollider2D:
   m_Offset: {x: -0.06286919, y: 0.0028576255}
   m_Size: {x: 0.8086308, y: 1.3372077}
   m_Direction: 0
+--- !u!50 &71863500
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71863495}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -7696,7 +7724,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 71863496}
@@ -7801,9 +7829,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4518372374152166669, guid: ec81c46282aa7ad49a9b26d1e84a7213, type: 3}
+      propertyPath: _data
+      value: 
+      objectReference: {fileID: 11400000, guid: 168d04d99b85c5c40b2656aa66357994, type: 2}
+    - target: {fileID: 4518372374152166669, guid: ec81c46282aa7ad49a9b26d1e84a7213, type: 3}
       propertyPath: _player
       value: 
-      objectReference: {fileID: 71863497}
+      objectReference: {fileID: 71863496}
     - target: {fileID: 4518372374152166669, guid: ec81c46282aa7ad49a9b26d1e84a7213, type: 3}
       propertyPath: _renderer
       value: 

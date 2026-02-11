@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class MonsterCtrl : MonoBehaviour
 {
-    [SerializeField] MonsterData _monsterData;
+    [SerializeField] MonsterData _data;
     [SerializeField] MonsterRenderer _renderer;
-    [SerializeField] PlayerCtrl _player;
+    [SerializeField] Transform _player;
+
+    public MonsterData Data => _data;
 
     private void Awake()
     {
         _renderer = GetComponentInChildren<MonsterRenderer>();
+        _data.Init();
     }
 
     private void Update()
@@ -28,14 +31,28 @@ public class MonsterCtrl : MonoBehaviour
         Vector3 monsterPos = transform.position;
         Vector3 dir = (playerPos - monsterPos).normalized;
 
-        transform.position += dir * _monsterData.Speed * Time.deltaTime;
+        transform.position += dir * _data.Speed * Time.deltaTime;
 
         _renderer.MRMove(dir);
     }
 
-    //public void TakeDamage(float damage)
+    public void TakeDamage(float damage)
+    {
+        _renderer.MRDamage();
+        _data.Damage(damage);
+    }
+
+    public void Death()
+    {
+        _renderer.MRDeath();
+        gameObject.SetActive(false);
+    }
+
+    //private void OnTriggerEnter2D(Collider2D coll)
     //{
-    //    _monsterData.Damage(damage);
-    //    _renderer.MRDamage();
+    //    if (coll.CompareTag("Skill"))
+    //    {
+    //        TakeDamage(1);
+    //    }
     //}
 }

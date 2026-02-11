@@ -12,11 +12,11 @@ public class PlayerCtrl : MonoBehaviour
 
     PlayerStats _stats;
     PlayerRenderer _renderer;
-    //MonsterCtrl _monster;
 
     Vector3 _dir;
     PlayerState _state = PlayerState.Idle;
     [SerializeField] GameObject _area;
+    [SerializeField] Rigidbody2D _rigid;
 
     [SerializeField] float _dashTimer;
     [SerializeField] float _dashTime;
@@ -84,7 +84,7 @@ public class PlayerCtrl : MonoBehaviour
         if (_dir == Vector3.zero)
             _state = PlayerState.Idle;
 
-        transform.position += _dir * _stats.Speed * Time.deltaTime;
+        _rigid.velocity = _dir * _stats.Speed * Time.deltaTime;
     }
     #endregion
 
@@ -98,15 +98,7 @@ public class PlayerCtrl : MonoBehaviour
 
     public void  Dash()
     {
-        _dashTimer = _dashTime;
-
-        GetDir();
-
-        float dashSpeed = _stats.Speed * 3;
-
-        transform.position += _dir * dashSpeed * Time.deltaTime;
-
-        _dashTimer -= Time.deltaTime;
+        _dashTime -= Time.deltaTime;
 
         if (_dashTimer < 0)
             _state = PlayerState.Idle;
@@ -122,13 +114,25 @@ public class PlayerCtrl : MonoBehaviour
         _stats.GetDamage(damage);
     }
 
-    //public void OnTriggerEnter2D(Collider2D coll)
-    //{
-    //    if (coll.CompareTag("Monster"))
-    //    {
-    //        // 
-    //        //_monster.TakeDamage(skillDamage)
-    //    }
-    //}
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.CompareTag("Monster"))
+        {
+            MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
+            MonsterData data = monster.Data;
+
+            TakeDamage(data.Power);
+
+            if (data.Hp <= 0)
+            {
+                monster.Death();
+            }
+        }
+    }
     #endregion
+
+    public void Die()
+    {
+
+    }
 }

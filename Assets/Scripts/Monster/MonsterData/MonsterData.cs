@@ -3,13 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MonsterData", menuName = "Data/Monster")]
 public class MonsterData : ScriptableObject
 {
-    float _speed;
-    float _power;
-    float _maxHp;
-    float _hp;
-    float _xp;
-    int _level;
-    float _spawn;
+    [SerializeField] float _speed;
+    [SerializeField] float _power;
+    [SerializeField] float _maxHp;
+    [SerializeField] float _hp;
+    [SerializeField] float _xp;
+    [SerializeField] int _level;
+    [SerializeField] float _spawn;
 
     public float Hp => _hp;
     public float Power => _power;
