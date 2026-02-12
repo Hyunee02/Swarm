@@ -16,7 +16,9 @@ public class PlayerCtrl : MonoBehaviour
     Vector3 _dir;
     PlayerState _state = PlayerState.Idle;
     [SerializeField] GameObject _area;
-    [SerializeField] Rigidbody2D _rigid;
+
+    [SerializeField] float _maxX;
+    [SerializeField] float _maxY;
 
     [SerializeField] float _dashTimer;
     [SerializeField] float _dashTime;
@@ -84,7 +86,26 @@ public class PlayerCtrl : MonoBehaviour
         if (_dir == Vector3.zero)
             _state = PlayerState.Idle;
 
-        _rigid.velocity = _dir * _stats.Speed * Time.deltaTime;
+        transform.position += _dir * _stats.Speed * Time.deltaTime;
+
+        LimitPlayer();
+    }
+
+    public void LimitPlayer()
+    {
+        Vector3 playerPos = transform.position;
+
+        if (playerPos.x > _maxX)
+            playerPos.x = _maxX;
+        else if (playerPos.x < -_maxX)
+            playerPos.x = -_maxX;
+
+        if (playerPos.y > _maxY)
+            playerPos.y = _maxY;
+        else if (playerPos.y < -_maxY)
+            playerPos.y = -_maxY;
+
+        transform.position = playerPos;
     }
     #endregion
 
@@ -127,6 +148,14 @@ public class PlayerCtrl : MonoBehaviour
             {
                 monster.Death();
             }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D coll)
+    {
+        if (coll.CompareTag("Monster"))
+        {
+
         }
     }
     #endregion

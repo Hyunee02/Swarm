@@ -14,6 +14,7 @@ public class MonsterData : ScriptableObject
     public float Hp => _hp;
     public float Power => _power;
     public float Speed => _speed;
+    public float Xp => _xp;
 
     public void Init()
     {

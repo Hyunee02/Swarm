@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Map : MonoBehaviour
 {
@@ -7,8 +6,8 @@ public class Map : MonoBehaviour
     [SerializeField] PlayerCtrl _player;
 
     [SerializeField] int _tileSize;
-    [SerializeField] float _maxX;
-    [SerializeField] float _maxY;
+
+    Vector3 playerPos;
 
     private void Update()
     {
@@ -17,25 +16,24 @@ public class Map : MonoBehaviour
 
     public void MoveMap()
     {
-        Vector3 playerPos = _player.transform.position;
+        playerPos = _player.transform.position;
 
         foreach (Transform tile in _tiles)
         {
-            Vector3 tilePos = tile.transform.position;
+            Vector3 tilePos = tile.position;
             Vector3 offset = playerPos - tilePos;
-            Vector3 dir = (playerPos - tilePos).normalized;
 
             if (offset.x > tilePos.x / 2f)
-                tilePos.x += dir.x * _tileSize * 3f;
-
-            if (offset.x < -tilePos.x / 2f)
-                tilePos.x -= dir.x * _tileSize * 3f;
+                tilePos.x += Vector3.right.x * _tileSize * 3f;
+            else if (offset.x < -tilePos.x / 2f)
+                tilePos.x += Vector3.left.x * _tileSize * 3f;
 
             if (offset.y > tilePos.y / 2f)
-                tilePos.y += dir.y * _tileSize * 3f;
+                tilePos.y += Vector3.up.y * _tileSize * 3f;
+            else if (offset.y < -tilePos.y / 2f)
+                tilePos.y += Vector3.down.y * _tileSize * 3f;
 
-            if (offset.y < -tilePos.y / 2f)
-                tilePos.y -= dir.y * _tileSize * 3f;
+            tile.position = tilePos;
         }
     }
 }

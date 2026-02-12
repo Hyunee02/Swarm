@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using DG.Tweening.Core;
 
 public class MonsterRenderer : MonoBehaviour
 {
@@ -29,8 +30,9 @@ public class MonsterRenderer : MonoBehaviour
 
     public void MRDamage()
     {
-        _renderer.DOColor(Color.red, 3f)
+        _renderer.DOColor(Color.red, 2f)
                  .SetLoops(4, LoopType.Yoyo)
+                 .SetEase(Ease.Linear)
                  .OnComplete(() => _renderer.color = Color.white); 
     }
 
