@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using DG.Tweening.Core;
 
 public class MonsterRenderer : MonoBehaviour
 {

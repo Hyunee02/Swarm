@@ -6519,7 +6519,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1180063691}
   - component: {fileID: 1180063690}
-  - component: {fileID: 1180063692}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -6563,30 +6562,6 @@ Transform:
   - {fileID: 1793048946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1180063692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1180063689}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef582d9540012c44e8ee392bb066ddbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tiles:
-  - {fileID: 1358182911}
-  - {fileID: 1120599544}
-  - {fileID: 1085810746}
-  - {fileID: 743418156}
-  - {fileID: 1147015634}
-  - {fileID: 1992443841}
-  - {fileID: 990059683}
-  - {fileID: 1683358537}
-  - {fileID: 1793048946}
-  _player: {fileID: 71863497}
-  _tileSize: 10
 --- !u!1 &1233313931 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1259268129915570936, guid: ec81c46282aa7ad49a9b26d1e84a7213, type: 3}
