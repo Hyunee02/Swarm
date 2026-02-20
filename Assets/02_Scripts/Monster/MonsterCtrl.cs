@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class MonsterCtrl : MonoBehaviour
 {
@@ -41,15 +42,11 @@ public class MonsterCtrl : MonoBehaviour
     {
         Vector3 playerPos = _player.transform.position;
         Vector3 monsterPos = transform.position;
-        Vector3 dir = (playerPos - monsterPos).normalized;
-
-        _rigid.velocity =  dir * _data.Speed;
-
+        Vector3 dir = (playerPos - monsterPos).normalized;               
         float dist = Vector3.Distance(playerPos, monsterPos);
 
-        if (dist < 0.8)
-            _rigid.velocity = Vector2.zero;
-        // 몬스터 통과됨 ㅎㅅㅎ... 고쳐라
+        if (dist > 0.8)      
+            transform.Translate(dir * _data.Speed * Time.deltaTime); 
 
         _renderer.MRMove(dir);
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent (typeof(Rigidbody2D))]
 public class PlayerCtrl : MonoBehaviour
 {
     public enum PlayerState
@@ -14,6 +15,8 @@ public class PlayerCtrl : MonoBehaviour
     PlayerRenderer _renderer;
 
     Vector3 _dir;
+    Rigidbody2D _rigid;
+
     PlayerState _state = PlayerState.Idle;
     [SerializeField] GameObject _area;
 
@@ -22,6 +25,11 @@ public class PlayerCtrl : MonoBehaviour
 
     [SerializeField] float _dashTimer;
     [SerializeField] float _dashTime;
+
+    private void Awake()
+    {
+        _rigid = GetComponent<Rigidbody2D>();
+    }
 
     public void Initialize(PlayerStats stats, PlayerRenderer renderer)
     {
@@ -83,10 +91,12 @@ public class PlayerCtrl : MonoBehaviour
     {
         GetDir();
 
-        if (_dir == Vector3.zero)
-            _state = PlayerState.Idle;
+        _rigid.velocity = _dir * _stats.Speed;
 
-        transform.position += _dir * _stats.Speed * Time.deltaTime;
+        //if (_dir == Vector3.zero)
+        //    _state = PlayerState.Idle;
+
+        //transform.position += _dir * _stats.Speed * Time.deltaTime;
 
         LimitPlayer();
     }
