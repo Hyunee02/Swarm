@@ -16,7 +16,7 @@ public class PlayerCtrl : MonoBehaviour
     {
         Idle,
         Move,
-        Death,
+        Dead,
     }
 
     Vector3 _dir;
@@ -63,7 +63,7 @@ public class PlayerCtrl : MonoBehaviour
                 _renderer.RMove(_dir);
                 break;
 
-            case PlayerState.Death:
+            case PlayerState.Dead:
                 Die();
                 _renderer.RDead();
                 break;
@@ -116,7 +116,7 @@ public class PlayerCtrl : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (_stats.Hp <= 0)
-            _state = PlayerState.Death;
+            _state = PlayerState.Dead;
 
         _stats.Damage(damage);
         _renderer.RDamage();
