@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
     [Header("----- RunTime -----")]
     [SerializeField] float _hp;
 
+    public float Hp => _hp;
     public float BaseSpeed => _baseSpeed;
     public float BaseMaxHp => _baseMaxHp;
     public float BaseArea => _baseArea;
@@ -21,7 +22,7 @@ public class PlayerStats : MonoBehaviour
         _hp = _baseMaxHp;
     }
 
-    public void TakeDamage(float damage)
+    public void Damage(float damage)
     {
         _hp -= damage;
         _hp = Mathf.Clamp(_hp, 0, _baseMaxHp);

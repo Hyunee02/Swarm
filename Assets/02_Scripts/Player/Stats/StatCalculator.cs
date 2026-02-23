@@ -28,7 +28,7 @@ public class StatCalculator : MonoBehaviour
         _power = _stats.BasePower;
     }
 
-    float CalculateStat(float baseStat, float multifly, int level)
+    public float CalculateStat(float baseStat, float multifly, int level)
     {
         return baseStat * Mathf.Pow(multifly, level - 1);
     }

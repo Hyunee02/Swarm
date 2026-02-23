@@ -32,7 +32,7 @@ public class MonsterRenderer : MonoBehaviour
         _renderer.DOColor(Color.red, 2f)
                  .SetLoops(4, LoopType.Yoyo)
                  .SetEase(Ease.Linear)
-                 .OnComplete(() => _renderer.color = Color.white); 
+                 .OnComplete(() => _renderer.color = Color.white);
     }
 
     public void MRDeath()

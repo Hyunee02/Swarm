@@ -5,6 +5,7 @@ public class PlayerCtrl : MonoBehaviour
 {
     [Header("----- Scripts -----")]
     [SerializeField] PlayerRenderer _renderer;
+    [SerializeField] PlayerStats _stats;
     [SerializeField] StatCalculator _statCal;
     [SerializeField] AreaCtrl _area;
 
@@ -63,6 +64,8 @@ public class PlayerCtrl : MonoBehaviour
                 break;
 
             case PlayerState.Death:
+                Die();
+                _renderer.RDead();
                 break;
 
             default:
@@ -110,41 +113,28 @@ public class PlayerCtrl : MonoBehaviour
     #endregion
 
     #region ÇÇ°Ý
-    //public void TakeDamage(float damage)
-    //{
-    //    if (_stats.Hp < 0)
-    //        _state = PlayerState.Death;
-
-    //    _stats.GetDamage(damage);
-    //}
-
-    //private void OnTriggerEnter2D(Collider2D coll)
-    //{
-    //    if (coll.CompareTag("Monster"))
-    //    {
-    //        MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
-    //        MonsterData data = monster.Data;
-
-    //        TakeDamage(data.Power);
-
-    //        if (data.Hp <= 0)
-    //        {
-    //            monster.Death();
-    //        }
-    //    }
-    //}
-
-    private void OnTriggerExit2D(Collider2D coll)
+    public void TakeDamage(float damage)
     {
-        if (coll.CompareTag("Monster"))
-        {
+        if (_stats.Hp <= 0)
+            _state = PlayerState.Death;
 
-        }
+        _stats.Damage(damage);
+        _renderer.RDamage();
+    }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
+        float power = monster.Data.Power;
+
+        TakeDamage(power);
     }
     #endregion
 
     public void Die()
     {
+        CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
 
+        collider.enabled = false;
     }
 }

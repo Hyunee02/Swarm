@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerRenderer : MonoBehaviour
@@ -27,8 +28,16 @@ public class PlayerRenderer : MonoBehaviour
         _anim.SetBool("IsMove", true);
     }
 
-    public void RDash(Vector2 dir)
+    public void RDamage()
     {
-        _anim.SetTrigger("OnDash");
+        _renderer.DOColor(Color.red, 2f)
+         .SetLoops(4, LoopType.Yoyo)
+         .SetEase(Ease.Linear)
+         .OnComplete(() => _renderer.color = Color.white);
+    }
+
+    public void RDead()
+    {
+        _anim.SetBool("IsDead", true);
     }
 }

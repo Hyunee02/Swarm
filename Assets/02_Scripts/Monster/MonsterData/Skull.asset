@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1a7405beed11754bae9cf9a01a4a626, type: 3}
-  m_Name: Slime
+  m_Name: Skull
   m_EditorClassIdentifier: 
-  _maxHp: 6
-  _hp: 6
-  _speed: 3
-  _power: 2
-  _xp: 2
+  _maxHp: 0
+  _hp: 0
+  _speed: 0
+  _power: 0
+  _xp: 0

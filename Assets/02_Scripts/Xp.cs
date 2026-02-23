@@ -3,6 +3,7 @@ using DG.Tweening;
 
 public class Xp : MonoBehaviour
 {
+    [Header("----- Scripts -----")]
     [SerializeField] PlayerCtrl _player;
     [SerializeField] MonsterCtrl _monster;
     [SerializeField] LevelManager _levelMgr;
