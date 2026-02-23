@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerRenderer : MonoBehaviour
 {
+    [Header("----- Scripts -----")]
     [SerializeField] SpriteRenderer _renderer;
     [SerializeField] Animator _anim;
 
@@ -16,7 +17,6 @@ public class PlayerRenderer : MonoBehaviour
         _anim.SetBool("IsMove", false);
     }
 
-    #region 플레이어 이동
     public void RMove(Vector2 dir)
     {
         if (dir.x >= 0)
@@ -26,12 +26,9 @@ public class PlayerRenderer : MonoBehaviour
 
         _anim.SetBool("IsMove", true);
     }
-    #endregion
 
-    #region 대시
     public void RDash(Vector2 dir)
     {
         _anim.SetTrigger("OnDash");
     }
-    #endregion
 }
