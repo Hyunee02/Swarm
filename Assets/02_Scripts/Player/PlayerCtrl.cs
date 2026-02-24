@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody2D))]
@@ -20,11 +21,9 @@ public class PlayerCtrl : MonoBehaviour
     }
 
     Vector3 _dir;
+    bool _isDamaged = false;
 
     PlayerState _state = PlayerState.Idle;
-
-    [SerializeField] float _maxX;
-    [SerializeField] float _maxY;
 
     private void Awake()
     {
@@ -37,14 +36,6 @@ public class PlayerCtrl : MonoBehaviour
     {
         _area.Init();
     }
-
-    //public void Initialize(PlayerStats stats, PlayerRenderer renderer)
-    //{
-    //    _stats = stats;
-    //    _renderer = renderer;
-
-    //    _area.Init();
-    //}
 
     private void Update()
     {
@@ -64,7 +55,7 @@ public class PlayerCtrl : MonoBehaviour
                 break;
 
             case PlayerState.Dead:
-                Die();
+                Dead();
                 _renderer.RDead();
                 break;
 
@@ -94,44 +85,54 @@ public class PlayerCtrl : MonoBehaviour
         //LimitPlayer();
     }
 
-    public void LimitPlayer()
-    {
-        Vector3 playerPos = transform.position;
+    //public void LimitPlayer()
+    //{
+    //    Vector3 playerPos = transform.position;
 
-        if (playerPos.x > _maxX)
-            playerPos.x = _maxX;
-        else if (playerPos.x < -_maxX)
-            playerPos.x = -_maxX;
+    //    if (playerPos.x > _maxX)
+    //        playerPos.x = _maxX;
+    //    else if (playerPos.x < -_maxX)
+    //        playerPos.x = -_maxX;
 
-        if (playerPos.y > _maxY)
-            playerPos.y = _maxY;
-        else if (playerPos.y < -_maxY)
-            playerPos.y = -_maxY;
+    //    if (playerPos.y > _maxY)
+    //        playerPos.y = _maxY;
+    //    else if (playerPos.y < -_maxY)
+    //        playerPos.y = -_maxY;
 
-        transform.position = playerPos;
-    }
+    //    transform.position = playerPos;
+    //}
     #endregion
 
     #region ÇÇ°Ý
-    public void TakeDamage(float damage)
-    {
-        if (_stats.Hp <= 0)
-            _state = PlayerState.Dead;
-
-        _stats.Damage(damage);
-        _renderer.RDamage();
-    }
-
     private void OnCollisionEnter2D(Collision2D coll)
     {
         MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
         float power = monster.Data.Power;
 
-        TakeDamage(power);
+        if (_stats.Hp <= 0)
+            _state = PlayerState.Dead;
+
+        StartCoroutine(TakeDamage(power));
+    }
+
+    private void OnCollisionExit2D(Collision2D coll)
+    {
+        _isDamaged = false;
+        StopCoroutine(TakeDamage(0f));
+    }
+
+    IEnumerator TakeDamage(float damage)
+    {
+        _isDamaged = true;
+
+        _stats.Damage(damage);
+        _renderer.RDamage();
+
+        yield return new WaitForSeconds(1f);
     }
     #endregion
 
-    public void Die()
+    public void Dead()
     {
         CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
 

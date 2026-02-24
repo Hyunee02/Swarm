@@ -8,6 +8,15 @@ public class Xp : MonoBehaviour
     [SerializeField] MonsterCtrl _monster;
     [SerializeField] LevelManager _levelMgr;
 
+    public float xpAmount;
+
+    public void Initialize(PlayerCtrl player, MonsterCtrl monster, LevelManager levelMgr)
+    {
+        _player = player;
+        _monster = monster;
+        _levelMgr = levelMgr;
+    }
+
     public void XpMove()
     {
         Vector3 playerPos = _player.transform.position;

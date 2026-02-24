@@ -22,7 +22,9 @@ public abstract class SkillData : ScriptableObject
     [SerializeField] float _coolTime;
     [SerializeField] float _count;
 
-    public float BasePower => _basePower;
+    public float Power => _power;
+    public float CoolTime => _coolTime;
+    public float Count => _count;
 
     public void Init()
     {
@@ -32,18 +34,4 @@ public abstract class SkillData : ScriptableObject
         _coolTime = _baseCoolTime;
         _count = _baseCount;
     }
-
-    public void CalculateStat(StatType type, float multifly, int level)
-    {
-
-    }
-
-    public void LevelUpSkill(int level)
-    {
-        
-    }
-
-    // 1. 계수로 넣어줘야하나
-    // 2. 각각 다른 선택지를 하나씩 줘야하나....
-    // 3. 레벨업 할 때 모든 걸 업글 시켜줘야하나...
 }

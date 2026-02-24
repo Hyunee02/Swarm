@@ -35,7 +35,7 @@ public class MonsterRenderer : MonoBehaviour
                  .OnComplete(() => _renderer.color = Color.white);
     }
 
-    public void MRDeath()
+    public void MRDead()
     {
         _anim.SetBool("IsDie", true);
     }
