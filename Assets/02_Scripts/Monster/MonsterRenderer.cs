@@ -14,7 +14,7 @@ public class MonsterRenderer : MonoBehaviour
 
     public void MRCreate()
     {
-        _anim.SetBool("IsDie", false);
+        _anim.SetBool("IsDead", false);
     }
 
     public void MRMove(Vector2 dir)
@@ -29,14 +29,14 @@ public class MonsterRenderer : MonoBehaviour
 
     public void MRDamage()
     {
-        _renderer.DOColor(Color.red, 2f)
-                 .SetLoops(4, LoopType.Yoyo)
+        _renderer.DOColor(Color.red, 0.3f)
+                 .SetLoops(2, LoopType.Yoyo)
                  .SetEase(Ease.Linear)
                  .OnComplete(() => _renderer.color = Color.white);
     }
 
     public void MRDead()
     {
-        _anim.SetBool("IsDie", true);
+        _anim.SetBool("IsDead", true);
     }
 }

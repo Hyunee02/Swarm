@@ -11,7 +11,11 @@ public class PlayerStats : MonoBehaviour
     [Header("----- RunTime -----")]
     [SerializeField] float _hp;
 
-    public float Hp => _hp;
+    public float Hp
+    {
+        get { return _hp; }
+        set { _hp = value; }
+    }
     public float BaseSpeed => _baseSpeed;
     public float BaseMaxHp => _baseMaxHp;
     public float BaseArea => _baseArea;

@@ -26,6 +26,7 @@ public class StatCalculator : MonoBehaviour
         _maxHp = _stats.BaseMaxHp;
         _area = _stats.BaseArea;
         _power = _stats.BasePower;
+        _stats.Hp = _maxHp;
     }
 
     public float CalculateStat(float baseStat, float multifly, int level)

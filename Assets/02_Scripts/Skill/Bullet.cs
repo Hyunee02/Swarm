@@ -10,13 +10,13 @@ public class Bullet : SkillData
 
     List<MonsterData> _monster = new();
 
+    private void Awake()
+    {
+        _data.Init();
+    }
+
     public void FindNearMonster()
     {
         
-
-        foreach (MonsterData monster in _monster)
-        {
-            
-        }         
     }
 }

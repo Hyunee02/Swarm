@@ -1,10 +1,17 @@
-using DG.Tweening;
+using System;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class MonsterCtrl : MonoBehaviour
 {
+    public enum MonsterState
+    {
+        Idle,
+        Move,
+        Dead,
+    }
+
     [Header("----- Scripts -----")]
     [SerializeField] PlayerCtrl _player;
     [SerializeField] MonsterData _data;
@@ -15,6 +22,10 @@ public class MonsterCtrl : MonoBehaviour
     [SerializeField] Rigidbody2D _rigid;
 
     [SerializeField] Xp _xpPrefab;
+
+    MonsterState _state = MonsterState.Move;
+
+    Coroutine _deadCoroutine = null;
 
     public MonsterData Data => _data;
 
@@ -28,7 +39,29 @@ public class MonsterCtrl : MonoBehaviour
 
     private void Update()
     {
-        ChasePlayer();
+        switch (_state)
+        {
+            case MonsterState.Idle:
+                break;
+
+            case MonsterState.Move:
+                ChasePlayer();
+
+                if (_data.Hp <= 0f)
+                {
+                    CreateXp();
+                    _state = MonsterState.Dead;
+                }
+                break;
+
+            case MonsterState.Dead:
+                _renderer.MRDead();
+                Dead();
+                break;
+
+            default:
+                break;
+        }
     }
 
     public void ChasePlayer()
@@ -40,8 +73,10 @@ public class MonsterCtrl : MonoBehaviour
 
         if (dist > 0.8f)
             _rigid.velocity = dir * _data.Speed;
+        else
+            _rigid.velocity = Vector2.zero;
 
-        _renderer.MRMove(dir);
+            _renderer.MRMove(dir);
     }
 
     public void TakeDamage(float damage)
@@ -52,20 +87,43 @@ public class MonsterCtrl : MonoBehaviour
 
     public void Dead()
     {
-        _renderer.MRDead();
-        gameObject.SetActive(false);
+        if (_deadCoroutine != null)
+        {
+            StopCoroutine(_deadCoroutine);
+            _deadCoroutine = null;
+        }
 
+        _deadCoroutine = StartCoroutine(DeadRoutine());
+    }
+
+    void CreateXp()
+    {
         Xp xp = Instantiate(_xpPrefab);
         xp.Initialize(_player, this, _levelMgr);
         xp.xpAmount = _data.Xp;
     }
 
-    private void OnColliderEnter2D(Collider2D coll)
+    private void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.CompareTag("Skill"))
         {
             SkillData data = coll.GetComponent<SkillData>();
             TakeDamage(data.Power);
         }
+    }
+
+    IEnumerator DeadRoutine()
+    {
+        _rigid.simulated = false;
+
+        yield return new WaitForSeconds(2f);
+
+        gameObject.SetActive(false);
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        TakeDamage(3f);
     }
 }

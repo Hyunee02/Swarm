@@ -22,7 +22,7 @@ public class Xp : MonoBehaviour
         Vector3 playerPos = _player.transform.position;
         Transform xpPos = transform;
 
-        xpPos.DOMove(playerPos, 3f)
+        xpPos.DOMove(playerPos, 2f)
              .SetEase(Ease.InCubic)
              .SetSpeedBased()
              .OnComplete(() => Destroy(gameObject));

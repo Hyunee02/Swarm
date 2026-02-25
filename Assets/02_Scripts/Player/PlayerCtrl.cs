@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Playables;
 
 [RequireComponent (typeof(Rigidbody2D))]
 public class PlayerCtrl : MonoBehaviour
@@ -11,19 +12,10 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] AreaCtrl _area;
 
     [Header("----- Components -----")]
-    Rigidbody2D _rigid;
-
-    public enum PlayerState
-    {
-        Idle,
-        Move,
-        Dead,
-    }
+    [SerializeField] Rigidbody2D _rigid;
 
     Vector3 _dir;
     bool _isDamaged = false;
-
-    PlayerState _state = PlayerState.Idle;
 
     private void Awake()
     {
@@ -39,29 +31,10 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
-        switch (_state)
-        {
-            case PlayerState.Idle:
-                GetDir();
-                _renderer.RIdle(_dir);
+        GetDir();
 
-                if (_dir != Vector3.zero)
-                    _state = PlayerState.Move;
-                break;
-
-            case PlayerState.Move:
-                Move();
-                _renderer.RMove(_dir);
-                break;
-
-            case PlayerState.Dead:
-                Dead();
-                _renderer.RDead();
-                break;
-
-            default:
-                break;
-        }
+        if (_dir != Vector3.zero)
+            Move();
     }
 
     /// <summary>
@@ -72,14 +45,13 @@ public class PlayerCtrl : MonoBehaviour
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        Vector3 _dir = new Vector3(h, v).normalized;
+        _dir = new Vector3(h, v).normalized;
     }
 
     #region 플레이어 이동
     public void Move()
     {
-        GetDir();
-
+        _renderer.RMove(_dir);
         _rigid.velocity = _dir * _statCal.Speed;
 
         //LimitPlayer();
@@ -109,19 +81,19 @@ public class PlayerCtrl : MonoBehaviour
         MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
         float power = monster.Data.Power;
 
-        if (_stats.Hp <= 0)
-            _state = PlayerState.Dead;
+        StartCoroutine(TakeDamageRoutine(power));
 
-        StartCoroutine(TakeDamage(power));
+        if (_stats.Hp <= 0)
+            Dead();
     }
 
     private void OnCollisionExit2D(Collision2D coll)
     {
         _isDamaged = false;
-        StopCoroutine(TakeDamage(0f));
+        StopCoroutine(TakeDamageRoutine(0f));
     }
 
-    IEnumerator TakeDamage(float damage)
+    IEnumerator TakeDamageRoutine(float damage)
     {
         _isDamaged = true;
 
@@ -137,5 +109,6 @@ public class PlayerCtrl : MonoBehaviour
         CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
 
         collider.enabled = false;
+        _rigid.simulated = false;
     }
 }

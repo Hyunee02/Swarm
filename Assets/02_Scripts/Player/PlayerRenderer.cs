@@ -30,8 +30,8 @@ public class PlayerRenderer : MonoBehaviour
 
     public void RDamage()
     {
-        _renderer.DOColor(Color.red, 2f)
-         .SetLoops(4, LoopType.Yoyo)
+        _renderer.DOColor(Color.red, 0.3f)
+         .SetLoops(2, LoopType.Yoyo)
          .SetEase(Ease.Linear)
          .OnComplete(() => _renderer.color = Color.white);
     }
