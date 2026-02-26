@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Monster
   - Area
+  - Skill
   layers:
   - Default
   - TransparentFX

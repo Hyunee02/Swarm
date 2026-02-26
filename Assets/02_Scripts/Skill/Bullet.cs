@@ -17,6 +17,6 @@ public class Bullet : SkillData
 
     public void FindNearMonster()
     {
-        
+        Vector3 playerPos = _player.transform.position;
     }
 }

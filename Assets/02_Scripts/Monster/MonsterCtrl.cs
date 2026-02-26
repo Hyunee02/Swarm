@@ -21,6 +21,7 @@ public class MonsterCtrl : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] Rigidbody2D _rigid;
     [SerializeField] Xp _xpPrefab;
+    [SerializeField] CircleCollider2D _collider;
 
     public MonsterData Data => _data;
 
@@ -63,15 +64,17 @@ public class MonsterCtrl : MonoBehaviour
         if (_state == MonsterState.Dead)
             return;
 
-        Vector3 playerPos = _player.transform.position;
-        Vector3 monsterPos = transform.position;
-        Vector3 dir = (playerPos - monsterPos).normalized;               
-        float dist = Vector3.Distance(playerPos, monsterPos);
+        Vector2 playerPos = _player.transform.position;
+        Vector2 monsterPos = _rigid.position;
+        Vector2 dir = (playerPos - monsterPos).normalized;
+        float dist = (playerPos - monsterPos).sqrMagnitude;
 
-        if (dist > 0.8f)
-            _rigid.velocity = dir * _data.Speed;
-        else
+        Debug.Log($"Dist : {dist}");
+
+        if (dist >= 0.8f)
             _rigid.velocity = Vector2.zero;
+        else
+            _rigid.velocity = dir * _data.Speed;
 
         _renderer.MRMove(dir);
     }
