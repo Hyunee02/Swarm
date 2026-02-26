@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Playables;
 
 [RequireComponent (typeof(Rigidbody2D))]
 public class PlayerCtrl : MonoBehaviour
@@ -14,8 +13,14 @@ public class PlayerCtrl : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] Rigidbody2D _rigid;
 
+    [SerializeField] float _limitX;
+    [SerializeField] float _limitY;
+
     Vector3 _dir;
+    Coroutine _damageRoutine;
+
     bool _isDamaged = false;
+    bool _isDead = false;
 
     private void Awake()
     {
@@ -31,15 +36,13 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Update()
     {
-        GetDir();
+        if (_isDead)
+            return;
 
-        if (_dir != Vector3.zero)
-            Move();
+        GetDir();
+        Move();
     }
 
-    /// <summary>
-    /// Dir값 가져오기
-    /// </summary>
     public void GetDir()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -52,27 +55,34 @@ public class PlayerCtrl : MonoBehaviour
     public void Move()
     {
         _renderer.RMove(_dir);
+
+        if (_dir == Vector3.zero)
+        {
+            _rigid.velocity = Vector2.zero;
+            return;
+        }
+
         _rigid.velocity = _dir * _statCal.Speed;
 
         //LimitPlayer();
     }
 
-    //public void LimitPlayer()
-    //{
-    //    Vector3 playerPos = transform.position;
+    public void LimitPlayer()
+    {
+        Vector2 playerPos = transform.position;
 
-    //    if (playerPos.x > _maxX)
-    //        playerPos.x = _maxX;
-    //    else if (playerPos.x < -_maxX)
-    //        playerPos.x = -_maxX;
+        if (playerPos.x > _limitX)
+            playerPos.x = _limitX;
+        else if (playerPos.x < -_limitX)
+            playerPos.x = -_limitX;
 
-    //    if (playerPos.y > _maxY)
-    //        playerPos.y = _maxY;
-    //    else if (playerPos.y < -_maxY)
-    //        playerPos.y = -_maxY;
+        if (playerPos.y > _limitY)
+            playerPos.y = _limitY;
+        else if (playerPos.y < -_limitY)
+            playerPos.y = -_limitY;
 
-    //    transform.position = playerPos;
-    //}
+        transform.position = playerPos;
+    }
     #endregion
 
     #region 피격
@@ -81,33 +91,52 @@ public class PlayerCtrl : MonoBehaviour
         MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
         float power = monster.Data.Power;
 
-        StartCoroutine(TakeDamageRoutine(power));
-
-        if (_stats.Hp <= 0)
-            Dead();
+        if (_damageRoutine == null)
+            _damageRoutine = StartCoroutine(TakeDamageRoutine(power));
     }
 
     private void OnCollisionExit2D(Collision2D coll)
     {
         _isDamaged = false;
-        StopCoroutine(TakeDamageRoutine(0f));
+
+        if (_damageRoutine != null)
+        {
+            StopCoroutine(_damageRoutine);
+            _damageRoutine = null;
+        }
     }
 
     IEnumerator TakeDamageRoutine(float damage)
     {
         _isDamaged = true;
 
-        _stats.Damage(damage);
-        _renderer.RDamage();
+        while (_isDamaged)
+        {
+            _stats.Damage(damage);
+            _renderer.RDamage();
 
-        yield return new WaitForSeconds(1f);
+            if (_stats.Hp <= 0)
+            {
+                _isDamaged = false;
+                Dead();
+                yield break;
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
     }
     #endregion
 
     public void Dead()
     {
-        CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
+        if (_isDead)
+            return;
+        _isDead = true;
 
+        _rigid.velocity = Vector2.zero;
+        _renderer.RDead();
+
+        CapsuleCollider2D collider = GetComponent<CapsuleCollider2D>();
         collider.enabled = false;
         _rigid.simulated = false;
     }

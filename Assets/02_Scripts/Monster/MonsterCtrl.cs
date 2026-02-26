@@ -20,14 +20,13 @@ public class MonsterCtrl : MonoBehaviour
 
     [Header("----- Components -----")]
     [SerializeField] Rigidbody2D _rigid;
-
     [SerializeField] Xp _xpPrefab;
+
+    public MonsterData Data => _data;
 
     MonsterState _state = MonsterState.Move;
 
-    Coroutine _deadCoroutine = null;
-
-    public MonsterData Data => _data;
+    Coroutine _deadCoroutine;
 
     private void Awake()
     {
@@ -48,15 +47,10 @@ public class MonsterCtrl : MonoBehaviour
                 ChasePlayer();
 
                 if (_data.Hp <= 0f)
-                {
-                    CreateXp();
-                    _state = MonsterState.Dead;
-                }
+                    Dead();
                 break;
 
             case MonsterState.Dead:
-                _renderer.MRDead();
-                Dead();
                 break;
 
             default:
@@ -66,6 +60,9 @@ public class MonsterCtrl : MonoBehaviour
 
     public void ChasePlayer()
     {
+        if (_state == MonsterState.Dead)
+            return;
+
         Vector3 playerPos = _player.transform.position;
         Vector3 monsterPos = transform.position;
         Vector3 dir = (playerPos - monsterPos).normalized;               
@@ -76,35 +73,43 @@ public class MonsterCtrl : MonoBehaviour
         else
             _rigid.velocity = Vector2.zero;
 
-            _renderer.MRMove(dir);
+        _renderer.MRMove(dir);
     }
 
     public void TakeDamage(float damage)
     {
+        if (_state == MonsterState.Dead)
+            return;
+
         _renderer.MRDamage();
         _data.Damage(damage);
     }
 
-    public void Dead()
-    {
-        if (_deadCoroutine != null)
-        {
-            StopCoroutine(_deadCoroutine);
-            _deadCoroutine = null;
-        }
-
-        _deadCoroutine = StartCoroutine(DeadRoutine());
-    }
-
     void CreateXp()
     {
-        Xp xp = Instantiate(_xpPrefab);
+        Xp xp = Instantiate(_xpPrefab, transform.position, Quaternion.identity);
         xp.Initialize(_player, this, _levelMgr);
         xp.xpAmount = _data.Xp;
     }
 
+    public void Dead()
+    {
+        if (_state == MonsterState.Dead)
+            return;
+
+        _renderer.MRDead();
+        CreateXp();
+
+        if (_deadCoroutine == null)
+            _deadCoroutine = StartCoroutine(DeadRoutine());
+    }
+
     private void OnTriggerEnter2D(Collider2D coll)
     {
+        if (_state == MonsterState.Dead)
+            return;
+        _state = MonsterState.Dead;
+
         if (coll.CompareTag("Skill"))
         {
             SkillData data = coll.GetComponent<SkillData>();
@@ -114,16 +119,12 @@ public class MonsterCtrl : MonoBehaviour
 
     IEnumerator DeadRoutine()
     {
+        _rigid.velocity = Vector2.zero;
         _rigid.simulated = false;
 
         yield return new WaitForSeconds(2f);
 
         gameObject.SetActive(false);
-
-    }
-
-    private void OnCollisionEnter2D(Collision2D coll)
-    {
-        TakeDamage(3f);
+        _deadCoroutine = null;
     }
 }

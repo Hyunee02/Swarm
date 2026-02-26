@@ -39,5 +39,6 @@ public class PlayerRenderer : MonoBehaviour
     public void RDead()
     {
         _anim.SetBool("IsDead", true);
+        _anim.SetBool("IsMove", false);
     }
 }
