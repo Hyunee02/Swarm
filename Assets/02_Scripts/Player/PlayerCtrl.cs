@@ -90,6 +90,8 @@ public class PlayerCtrl : MonoBehaviour
     {
         MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
         float power = monster.Data.Power;
+        float speed = monster.Data.Speed;
+        monster.Data.SetSpeedZero();
 
         if (_damageRoutine == null)
             _damageRoutine = StartCoroutine(TakeDamageRoutine(power));
@@ -97,6 +99,10 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D coll)
     {
+        MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
+        float speed = monster.Data.Speed;
+        monster.Data.SetSpeedOrigin();
+
         _isDamaged = false;
 
         if (_damageRoutine != null)

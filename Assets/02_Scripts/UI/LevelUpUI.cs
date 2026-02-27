@@ -2,89 +2,75 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+/*
+레벨업 UI는 연결해주는 거
+
+랜덤 선택 (각 4종류)
+1. 스킬 강화
+2. 스탯 강화
+
+1. 스킬 강화를 눌렀을 시
+-> 4개 중 하나를 내보내야 하자나
+주의점
+1. 스킬 레벨 5일 시 선택지 X
+2. 획득한 스킬에서만 강화 선택지를 내보내기
+
+2. 스탯 강화를 눌렀을 시
+4개 중 랜덤
+
+근데 카드 3개니까
+1개는 스킬 강화
+1개는 스탯 강화
+1개는 새 스킬
+카테고리 정해놓고 나오게 할까?
+
+나 mul도 랜덤으로 하고 싶은데 5단위로 10-20정도
+*/
+
 public class LevelUpUI : MonoBehaviour
 {
     public enum UpgradeType
     {
         PlayerStat,
-        Skill
-    }
-
-    public enum StatType
-    {
-        Speed,
-        Hp,
-        Area,
-        Power,
-    }
-
-    public enum SkillType
-    {
-
+        Skill,
+        NewSkill
     }
 
     [Header("----- Scripts -----")]
     [SerializeField] LevelManager _levelMgr;
-    [SerializeField] CardData[] _cardData;
 
     [Header("----- Components -----")]
     [SerializeField] TMP_Text _nameText;
     [SerializeField] TMP_Text _infoText;
-    [SerializeField] Image _iconImage;
+    [SerializeField] SpriteRenderer _iconImage;
 
-    StatType _stat;
+    UpgradeType _type;
 
-    // 1. 스탯 랜덤 고르기
-    // 2. 스킬 랜덤 고르기 (없는 거는 생성되게, 있는 건 강화 선택지)
-    // 3. 스탯이랑 스킬 나오는 비율
-
-    public void ShowSelect()
+    public void ApplyCard()
     {
-        int select = Random.Range(0, 2);
-
-        switch (select)
+        switch (_type)
         {
-            case 0:
-                RandomSelectStat();
+            case UpgradeType.PlayerStat:
+
+                break;
+
+            case UpgradeType.Skill:
+                break;
+
+            case UpgradeType.NewSkill:
                 break;
         }
     }
 
-    public void RandomSelectStat()
+    public void ChangeCardInfo(string name, string info, SpriteRenderer image)
     {
-        switch (_stat)
-        {
-            case StatType.Speed:
-                _levelMgr.PickSpeed();
-                ChangeUI(_cardData[0]);
-                break;
-
-            case StatType.Hp:
-                _levelMgr.PickHp();
-                ChangeUI(_cardData[1]);
-                break;
-
-            case StatType.Area:
-                _levelMgr.PickArea();
-                ChangeUI(_cardData[2]);
-                break;
-
-            case StatType.Power:
-                _levelMgr.PickPower();
-                ChangeUI(_cardData[3]);
-                break;
-        }
+        _nameText.text = name;
+        _infoText.text = info;
+        _iconImage = image;
     }
-    
-    public void ApplyStat(StatType type, CardData cardData)
+
+    void SelectStat()
     {
         
-    }
-
-    public void ChangeUI(CardData cardData)
-    {
-        _nameText.text = cardData.Name;
-        _infoText.text = cardData.Info;
-        _iconImage = cardData.Icon;
     }
 }

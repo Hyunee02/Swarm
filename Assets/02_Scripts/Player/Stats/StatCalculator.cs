@@ -13,7 +13,8 @@ public class StatCalculator : MonoBehaviour
     [SerializeField] float _power;
 
     [Header("----- Multifly -----")]
-    [SerializeField] float _mul;
+    [SerializeField] int[] _mul = { 10, 15, 20 };
+    int _randMul;
 
     public float Speed => _speed;
     public float MaxHp => _maxHp;
@@ -34,23 +35,34 @@ public class StatCalculator : MonoBehaviour
         return baseStat * Mathf.Pow(multifly, level - 1);
     }
 
-    public void UpgradeSpeed(int level)
+    public void RandomMultifly()
     {
-        _speed = CalculateStat(_stats.BaseSpeed, _mul, level);
+        int randIndex = Random.Range(0, _mul.Length);
+        _randMul = _mul[randIndex];
     }
 
+    public void UpgradeSpeed(int level)
+    {
+        RandomMultifly();
+        _speed = CalculateStat(_stats.BaseSpeed, _randMul, level);
+    }
+
+    // maxHp에 따라 현재 hp 비율 맞춰주는 거 필요
     public void UpgradeHp(int level)
     {
-        _maxHp = CalculateStat(_stats.BaseMaxHp, _mul, level);
+        RandomMultifly();
+        _maxHp = CalculateStat(_stats.BaseMaxHp, _randMul, level);
     }
 
     public void UpgradeArea(int level)
     {
-        _area = CalculateStat(_stats.BaseArea, _mul, level);
+        RandomMultifly();
+        _area = CalculateStat(_stats.BaseArea, _randMul, level);
     }
 
     public void UpgradePower(int level)
     {
-        _power = CalculateStat(_stats.BasePower, _mul, level);
+        RandomMultifly();
+        _power = CalculateStat(_stats.BasePower, _randMul, level);
     }
 }

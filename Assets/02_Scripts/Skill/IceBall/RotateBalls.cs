@@ -19,7 +19,7 @@ public class RotateBalls : MonoBehaviour
 
     private void Update()
     {
-        RotateBall();
+        ActiveBall();
 
         if (_activeRoutine == null)
             _activeRoutine = StartCoroutine(DeActiveRoutine());

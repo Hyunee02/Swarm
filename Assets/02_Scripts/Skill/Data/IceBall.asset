@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1a599d502aadf8459534aaf9e3df6ca, type: 3}
-  m_Name: SkillData
+  m_Name: IceBall
   m_EditorClassIdentifier: 
-  _statCal: {fileID: 0}
   _basePower: 0
   _baseCoolTime: 0
   _baseCount: 0
@@ -21,6 +20,3 @@ MonoBehaviour:
   _power: 0
   _coolTime: 0
   _count: 0
-  _powerMul: 0
-  _coolTimeMul: 0
-  _countMul: 0

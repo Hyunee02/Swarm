@@ -67,14 +67,14 @@ public class MonsterCtrl : MonoBehaviour
         Vector2 playerPos = _player.transform.position;
         Vector2 monsterPos = _rigid.position;
         Vector2 dir = (playerPos - monsterPos).normalized;
-        float dist = (playerPos - monsterPos).sqrMagnitude;
 
-        Debug.Log($"Dist : {dist}");
+        _rigid.velocity = dir * _data.Speed;
 
-        if (dist >= 0.8f)
-            _rigid.velocity = Vector2.zero;
-        else
-            _rigid.velocity = dir * _data.Speed;
+        //float dist = (playerPos - monsterPos).sqrMagnitude;
+        //if (dist >= 0.8f)
+        //    _rigid.velocity = Vector2.zero;
+        //else
+        //    _rigid.velocity = dir * _data.Speed;
 
         _renderer.MRMove(dir);
     }
@@ -107,6 +107,7 @@ public class MonsterCtrl : MonoBehaviour
             _deadCoroutine = StartCoroutine(DeadRoutine());
     }
 
+    // »Ï....
     private void OnTriggerEnter2D(Collider2D coll)
     {
         if (_state == MonsterState.Dead)
@@ -115,8 +116,8 @@ public class MonsterCtrl : MonoBehaviour
 
         if (coll.CompareTag("Skill"))
         {
-            SkillData data = coll.GetComponent<SkillData>();
-            TakeDamage(data.Power);
+            MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
+            monster.TakeDamage(_data.Power);
         }
     }
 

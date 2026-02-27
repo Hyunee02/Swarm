@@ -41,24 +41,36 @@ public class LevelManager : MonoBehaviour
 
     public void PickSpeed()
     {
+        if (_speedLv >= 5)
+            return;
+
         _speedLv++;
         _statCal.UpgradeSpeed(_speedLv);
     }
 
     public void PickHp()
     {
+        if (_hpLv >= 5)
+            return;
+
         _hpLv++;
         _statCal.UpgradeHp(_hpLv);
     }
 
     public void PickArea()
     {
+        if (_areaLv >= 5)
+            return;
+
         _areaLv++;
         _statCal.UpgradeArea(_areaLv);
     }
 
     public void PickPower()
     {
+        if (_powerLv >= 5)
+            return;
+
         _powerLv++;
         _statCal.UpgradePower(_powerLv);
     }

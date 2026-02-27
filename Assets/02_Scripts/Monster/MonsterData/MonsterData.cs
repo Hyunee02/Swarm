@@ -6,6 +6,7 @@ public class MonsterData : ScriptableObject
 {
     [SerializeField] float _maxHp;
     [SerializeField] float _hp;
+    [SerializeField] float _baseSpeed;
     [SerializeField] float _speed;
     [SerializeField] float _power;
     [SerializeField] float _xp;
@@ -18,6 +19,17 @@ public class MonsterData : ScriptableObject
     public void Init()
     {
         _hp = _maxHp;
+        _speed = _baseSpeed;
+    }
+
+    public void SetSpeedZero()
+    {
+        _speed = 0f;
+    }
+
+    public void SetSpeedOrigin()
+    {
+        _speed = _baseSpeed;
     }
 
     public void Damage(float damage)

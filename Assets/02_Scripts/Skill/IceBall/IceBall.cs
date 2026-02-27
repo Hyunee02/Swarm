@@ -1,24 +1,37 @@
+using System;
 using UnityEngine;
 
-public class IceBall : SkillData
+public class IceBall : MonoBehaviour
 {
+    [Header("----- Scripts -----")]
     [SerializeField] SkillData _data;
     [SerializeField] PlayerCtrl _player;
 
-    [SerializeField] IceBall _iceBallPrefab;
+    [SerializeField] Ball _iceBallPrefab;
 
+    [SerializeField] float _angle;
     [SerializeField] float _radius;
-    public float pi = Mathf.PI;
 
     private void Awake()
     {
         _data.Init();
     }
 
-    public void StartSkill()
+    void Update()
     {
-        Vector2 center = _player.transform.position;
+        _angle = 360 / _data.Count;
 
-        Instantiate(_iceBallPrefab, playerPos, Quaternion.identity);
+        float xPos = Mathf.Cos(_angle * Mathf.Deg2Rad) * _radius;
+        float yPos = Mathf.Sin(_angle * Mathf.Deg2Rad) * _radius;
+
+        for (int i = 0; i < _data.Count; i++)
+        {
+            Ball ball = Instantiate(_iceBallPrefab);
+
+            ball.transform.Translate(xPos, yPos, 0);
+
+            Vector2 dir = (_player.transform.position - ball.transform.position).normalized;
+            ball.transform.up = dir;
+        }
     }
 }

@@ -1,14 +1,8 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SkillData", menuName = "Data/Skill")]
-public abstract class SkillData : ScriptableObject
+public class SkillData : ScriptableObject
 {
-    public enum StatType
-    {
-        Power,
-        CoolTime,
-        Count,
-    }
 
     [Header("----- BaseStats -----")]
     [SerializeField] float _basePower;

@@ -6,7 +6,7 @@ public class MapCtrl : MonoBehaviour
     [SerializeField] PlayerCtrl _player;
 
     [Header("----- Components -----")]
-    [SerializeField] Transform[] _tiles;
+    [SerializeField] Transform _tile;
 
     [SerializeField] int _tileSize;
 
@@ -18,10 +18,7 @@ public class MapCtrl : MonoBehaviour
     void MoveTile()
     {
         Vector3 playerPos = _player.transform.position;
-
-        foreach (Transform tile in _tiles)
-        {
-            Vector3 tilePos = tile.position;
+        Vector3 tilePos = _tile.position;
 
             float xPos = playerPos.x - tilePos.x;
             float yPos = playerPos.y - tilePos.y;
@@ -36,7 +33,7 @@ public class MapCtrl : MonoBehaviour
             else if (yPos < -_tileSize)
                 tilePos.y -= _tileSize * 3f;
 
-            tile.position = tilePos;
+            _tile.position = tilePos;
         }
     }
 }
