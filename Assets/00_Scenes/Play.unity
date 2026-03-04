@@ -260,7 +260,7 @@ MonoBehaviour:
   _maxHp: 0
   _area: 0
   _power: 0
-  _mul: 0
+  _mul: 
 --- !u!114 &71863502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -873,6 +873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 265513468}
   - component: {fileID: 265513467}
+  - component: {fileID: 265513469}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -916,6 +917,30 @@ Transform:
   - {fileID: 1069495296}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &265513469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 265513466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 71863496}
+  _tiles:
+  - {fileID: 1423271086}
+  - {fileID: 581637565}
+  - {fileID: 725317054}
+  - {fileID: 1627936237}
+  - {fileID: 1401881122}
+  - {fileID: 304658976}
+  - {fileID: 896014591}
+  - {fileID: 872794664}
+  - {fileID: 1069495296}
+  _tileSize: 10
 --- !u!1 &304658975
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +952,6 @@ GameObject:
   - component: {fileID: 304658976}
   - component: {fileID: 304658978}
   - component: {fileID: 304658977}
-  - component: {fileID: 304658979}
   m_Layer: 0
   m_Name: Tilemap (5)
   m_TagString: Untagged
@@ -2071,21 +2095,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &304658979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 304658975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &394043658
 GameObject:
   m_ObjectHideFlags: 0
@@ -3049,7 +3058,6 @@ GameObject:
   - component: {fileID: 581637565}
   - component: {fileID: 581637567}
   - component: {fileID: 581637566}
-  - component: {fileID: 581637568}
   m_Layer: 0
   m_Name: Tilemap (1)
   m_TagString: Untagged
@@ -4193,21 +4201,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &581637568
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581637564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &609823576
 GameObject:
   m_ObjectHideFlags: 0
@@ -4758,7 +4751,6 @@ GameObject:
   - component: {fileID: 725317054}
   - component: {fileID: 725317056}
   - component: {fileID: 725317055}
-  - component: {fileID: 725317057}
   m_Layer: 0
   m_Name: Tilemap (2)
   m_TagString: Untagged
@@ -5902,21 +5894,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &725317057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725317053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &780765656
 GameObject:
   m_ObjectHideFlags: 0
@@ -6144,7 +6121,6 @@ GameObject:
   - component: {fileID: 872794664}
   - component: {fileID: 872794666}
   - component: {fileID: 872794665}
-  - component: {fileID: 872794667}
   m_Layer: 0
   m_Name: Tilemap (7)
   m_TagString: Untagged
@@ -7288,21 +7264,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &872794667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 872794663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &896014590
 GameObject:
   m_ObjectHideFlags: 0
@@ -7314,7 +7275,6 @@ GameObject:
   - component: {fileID: 896014591}
   - component: {fileID: 896014593}
   - component: {fileID: 896014592}
-  - component: {fileID: 896014594}
   m_Layer: 0
   m_Name: Tilemap (6)
   m_TagString: Untagged
@@ -8458,21 +8418,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &896014594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 896014590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &916783467
 GameObject:
   m_ObjectHideFlags: 0
@@ -9060,7 +9005,6 @@ GameObject:
   - component: {fileID: 1069495296}
   - component: {fileID: 1069495298}
   - component: {fileID: 1069495297}
-  - component: {fileID: 1069495299}
   m_Layer: 0
   m_Name: Tilemap (8)
   m_TagString: Untagged
@@ -10204,21 +10148,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1069495299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069495295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &1081342102
 GameObject:
   m_ObjectHideFlags: 0
@@ -10873,7 +10802,6 @@ GameObject:
   - component: {fileID: 1401881122}
   - component: {fileID: 1401881124}
   - component: {fileID: 1401881123}
-  - component: {fileID: 1401881125}
   m_Layer: 0
   m_Name: Tilemap (4)
   m_TagString: Untagged
@@ -12017,21 +11945,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1401881125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1401881121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &1423271085
 GameObject:
   m_ObjectHideFlags: 0
@@ -12043,7 +11956,6 @@ GameObject:
   - component: {fileID: 1423271086}
   - component: {fileID: 1423271088}
   - component: {fileID: 1423271087}
-  - component: {fileID: 1423271089}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -13187,21 +13099,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1423271089
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423271085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1 &1454847295
 GameObject:
   m_ObjectHideFlags: 0
@@ -13459,7 +13356,6 @@ GameObject:
   - component: {fileID: 1627936237}
   - component: {fileID: 1627936239}
   - component: {fileID: 1627936238}
-  - component: {fileID: 1627936240}
   m_Layer: 0
   m_Name: Tilemap (3)
   m_TagString: Untagged
@@ -14603,21 +14499,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!114 &1627936240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627936236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9f443dec32fc2649952c6a46b6d3ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 71863497}
-  _tiles: []
-  _tileSize: 10
 --- !u!1001 &1632580739
 PrefabInstance:
   m_ObjectHideFlags: 0

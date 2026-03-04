@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour
 
     void FindNearMonster()
     {
-        Vector2 dir = (_player.transform.position - _)
+
     }
 
     void MoveBullet()
