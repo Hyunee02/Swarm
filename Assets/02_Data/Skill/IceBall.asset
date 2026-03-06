@@ -16,7 +16,7 @@ MonoBehaviour:
   _baseCoolTime: 0
   _baseCount: 0
   _maxLevel: 0
-  _level: 0
+  _level: 1
   _power: 0
   _coolTime: 0
   _count: 0

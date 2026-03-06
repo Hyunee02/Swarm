@@ -50,6 +50,9 @@ TagManager:
   - name: Character
     uniqueID: 1533922647
     locked: 0
+  - name: Skill
+    uniqueID: 1538257729
+    locked: 0
   - name: Monster
     uniqueID: 1912516945
     locked: 0

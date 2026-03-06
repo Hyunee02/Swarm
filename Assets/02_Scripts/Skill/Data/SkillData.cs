@@ -16,6 +16,7 @@ public class SkillData : ScriptableObject
     [SerializeField] float _coolTime;
     [SerializeField] float _count;
 
+    public int Level => _level;
     public float Power => _power;
     public float CoolTime => _coolTime;
     public float Count => _count;

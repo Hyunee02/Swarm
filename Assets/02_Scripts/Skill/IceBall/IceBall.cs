@@ -1,23 +1,48 @@
+using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class IceBall : MonoBehaviour
 {
     [Header("----- Scripts -----")]
-    [SerializeField] SkillData _data;
     [SerializeField] PlayerCtrl _player;
+    SkillData _data;
+    SpriteRenderer _renderer;
 
-    [SerializeField] Ball _iceBallPrefab;
+    [SerializeField] Ball _ballPrefab;
 
+    [Header("----- Create -----")]
     [SerializeField] float _angle;
     [SerializeField] float _radius;
 
+    [Header("----- Active -----")]
+    [SerializeField] float _timer;
+    [SerializeField] float _activeDuration;
+    Coroutine _activeRoutine;
+
     private void Awake()
     {
+        _data = GetComponentInChildren<SkillData>();
+
         _data.Init();
+        _timer = _activeDuration;
     }
 
-    void Update()
+    private void Start()
+    {
+        CreateBalls();
+    }
+
+    private void Update()
+    {
+        ActiveBall();
+
+        if (_activeRoutine == null)
+            _activeRoutine = StartCoroutine(DeActiveRoutine());
+    }
+
+    void CreateBalls()
     {
         _angle = 360 / _data.Count;
 
@@ -26,7 +51,7 @@ public class IceBall : MonoBehaviour
 
         for (int i = 0; i < _data.Count; i++)
         {
-            Ball ball = Instantiate(_iceBallPrefab);
+            Ball ball = Instantiate(_ballPrefab, transform);
 
             ball.transform.Translate(xPos, yPos, 0);
 
@@ -34,4 +59,36 @@ public class IceBall : MonoBehaviour
             ball.transform.up = dir;
         }
     }
+
+    void ActiveBall()
+    {
+        _renderer.DOFade(1f, 1f)
+         .SetEase(Ease.Linear)
+         .OnComplete(() => gameObject.SetActive(true));
+    }
+
+    IEnumerator DeActiveRoutine()
+    {
+        if (_activeRoutine != null)
+        {
+            StopCoroutine(_activeRoutine);
+            _activeRoutine = null;
+        }
+
+        _timer -= Time.deltaTime;
+
+        if (_timer < 0)
+        {
+            _renderer.DOFade(0f, 1f)
+                     .SetEase(Ease.Linear)
+                     .OnComplete(() => gameObject.SetActive(false));
+
+            _timer = _activeDuration;
+        }
+
+        yield return new WaitForSeconds(_data.CoolTime);
+
+        ActiveBall();
+    }
+
 }

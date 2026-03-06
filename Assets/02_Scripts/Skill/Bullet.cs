@@ -3,27 +3,14 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [Header("----- Scripts -----")]
-    [SerializeField] PlayerCtrl _player;
-    [SerializeField] MonsterSpawner _spawner;
-    [SerializeField] SkillData _data;
+    [SerializeField] protected SkillData _data;
 
-    [SerializeField] float _radius;
-
-    List<MonsterData> _monster = new();
-
-    private void Awake()
+    private void OnCollisionEnter2D(Collision2D coll)
     {
-        _data.Init();
-    }
-
-    void FindNearMonster()
-    {
-
-    }
-
-    void MoveBullet()
-    {
-
+        if (coll.gameObject.CompareTag("Player"))
+        {
+            MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
+            monster.TakeDamage(_data.Power);
+        }
     }
 }

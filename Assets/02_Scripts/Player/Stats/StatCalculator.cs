@@ -13,7 +13,7 @@ public class StatCalculator : MonoBehaviour
     [SerializeField] float _power;
 
     [Header("----- Multifly -----")]
-    [SerializeField] int[] _mul = { 10, 15, 20 };
+    int[] _mul = { 10, 15, 20 };
     int _randMul;
 
     public float Speed => _speed;
@@ -30,15 +30,15 @@ public class StatCalculator : MonoBehaviour
         _stats.Hp = _maxHp;
     }
 
-    public float CalculateStat(float baseStat, float multifly, int level)
-    {
-        return baseStat * Mathf.Pow(multifly, level - 1);
-    }
-
     public void RandomMultifly()
     {
         int randIndex = Random.Range(0, _mul.Length);
         _randMul = _mul[randIndex];
+    }
+
+    public float CalculateStat(float baseStat, float multifly, int level)
+    {
+        return baseStat * Mathf.Pow(multifly, level - 1);
     }
 
     public void UpgradeSpeed(int level)

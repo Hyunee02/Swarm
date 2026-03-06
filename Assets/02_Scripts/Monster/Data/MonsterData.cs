@@ -22,16 +22,6 @@ public class MonsterData : ScriptableObject
         _speed = _baseSpeed;
     }
 
-    public void SetSpeedZero()
-    {
-        _speed = 0f;
-    }
-
-    public void SetSpeedOrigin()
-    {
-        _speed = _baseSpeed;
-    }
-
     public void Damage(float damage)
     {
         _hp -= damage;
