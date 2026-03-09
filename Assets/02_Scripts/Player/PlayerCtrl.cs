@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody2D))]
+[RequireComponent (typeof(CapsuleCollider2D))]
 public class PlayerCtrl : MonoBehaviour
 {
     [Header("----- Scripts -----")]
@@ -11,15 +12,13 @@ public class PlayerCtrl : MonoBehaviour
     [SerializeField] AreaCtrl _area;
 
     [Header("----- Components -----")]
-    [SerializeField] Rigidbody2D _rigid;
-    [SerializeField] CapsuleCollider2D _collider;
+    Rigidbody2D _rigid;
+    CapsuleCollider2D _collider;
 
-    [SerializeField] float _limitX;
-    [SerializeField] float _limitY;
+    [SerializeField] Vector2 _limit;
 
     Vector2 _dir;
 
-    bool _isMove = false;
     bool _isDead = false;
 
     private void Awake()
@@ -41,26 +40,32 @@ public class PlayerCtrl : MonoBehaviour
             return;
 
         Move();
-
-        if (_dir == Vector2.zero)
-            _renderer.RIdle(_dir);
+        //LimitPlayerPos();
     }
-
 
     void GetDir()
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        _dir = new Vector3(h, v).normalized;
+        _dir = new Vector2(h, v).normalized;
     }
 
     void Move()
     {
         GetDir();
-        _renderer.RMove(_dir);
         _rigid.velocity = _dir * _statCal.Speed;
+        _renderer.RMove(_rigid.velocity);
     }
+
+    //void LimitPlayerPos()
+    //{
+    //    Vector2 playerPos = transform.position;
+    //    playerPos.x = Mathf.Clamp(playerPos.x, -_limit.x, _limit.x);
+    //    playerPos.y = Mathf.Clamp(playerPos.y, -_limit.y, _limit.y);
+
+    //    transform.position = playerPos;
+    //}
 
     public void TakeDamage(float damage)
     {

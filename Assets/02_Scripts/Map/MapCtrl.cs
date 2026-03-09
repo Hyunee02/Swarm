@@ -4,7 +4,8 @@ public class MapCtrl : MonoBehaviour
 {
     [SerializeField] Transform _player;
     [SerializeField] Transform[] _tiles;
-    [SerializeField] int _tileSize;
+    [SerializeField] float _senseDist;
+    [SerializeField] float _reposDist;
 
     private void Update()
     {
@@ -15,13 +16,14 @@ public class MapCtrl : MonoBehaviour
             Transform tile = _tiles[i];
             Vector2 tilePos = tile.position;
 
-            float distX = tilePos.x - playerPos.x;
-            if (Mathf.Abs(distX) > tilePos.x / 2f)
-                tilePos += _tileSize * 3f * Vector2.right * Mathf.Sign(distX);
+            float distX = playerPos.x - tilePos.x;
+            float distY = playerPos.y - tilePos.y;
 
-            float distY = tilePos.y - playerPos.y;
-            if (Mathf.Abs(distY) > tilePos.y / 2f)
-                tilePos += _tileSize * 3f * Vector2.up * Mathf.Sign(distY);
+            if (Mathf.Abs(distX) > _senseDist)
+                tilePos += _reposDist * Vector2.right * Mathf.Sign(distX);
+
+            if (Mathf.Abs(distY) > _senseDist)
+                tilePos += _reposDist * Vector2.up * Mathf.Sign(distY);
 
             tile.position = tilePos;
         }

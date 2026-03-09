@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent (typeof(CircleCollider2D))]
 public class MonsterCtrl : MonoBehaviour
 {
     public enum MonsterState
@@ -38,12 +39,22 @@ public class MonsterCtrl : MonoBehaviour
     {
         _rigid = GetComponent<Rigidbody2D>();
         _renderer = GetComponentInChildren<MonsterRenderer>();
+        _collider = GetComponent<CircleCollider2D>();
 
         _data.Init();
     }
 
     private void Update()
     {
+        if (_state == MonsterState.Dead)
+            return;
+
+        if (_data.Hp <= 0f)
+        {
+            Dead();
+            return;
+        }
+
         switch (_state)
         {
             case MonsterState.Idle:
@@ -51,21 +62,13 @@ public class MonsterCtrl : MonoBehaviour
 
             case MonsterState.Move:
                 ChasePlayer();
-
-                if (_data.Hp <= 0f)
-                    Dead();
                 break;
 
             case MonsterState.Attack:
                 Stop();
 
-                if (_attackRoutine != null)
-                {
-                    StopCoroutine(_attackRoutine);
-                    _attackRoutine = null;
-                }
-
-                _attackRoutine = StartCoroutine(AttackRoutine());
+                if (_attackRoutine == null)
+                    _attackRoutine = StartCoroutine(AttackRoutine());
                 break;
 
             case MonsterState.Dead:
@@ -74,6 +77,12 @@ public class MonsterCtrl : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void Initialize(PlayerCtrl player, LevelManager levelMgr)
+    {
+        _player = player;
+        _levelMgr = levelMgr;
     }
 
     void ChasePlayer()
@@ -118,11 +127,19 @@ public class MonsterCtrl : MonoBehaviour
 
         Stop();
 
+        if (_attackRoutine != null)
+        {
+            StopCoroutine(_attackRoutine);
+            _attackRoutine = null;
+        }
+
         _renderer.MRDead();
         CreateXp();
 
         if (_deadCoroutine == null)
             _deadCoroutine = StartCoroutine(DeadRoutine());
+
+        _state = MonsterState.Dead;
     }
 
     private void OnCollisionEnter2D(Collision2D coll)
@@ -133,16 +150,20 @@ public class MonsterCtrl : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D coll)
     {
-        _state = MonsterState.Move;
+        if (coll.gameObject.CompareTag("Player"))
+            _state = MonsterState.Move;
     }
 
     IEnumerator AttackRoutine()
     {
-        _player.TakeDamage(_data.Power);
+        while (_state == MonsterState.Attack)
+        {
+            _player.TakeDamage(_data.Power);
 
-        yield return new WaitForSeconds(_attackCooltime);
+            yield return new WaitForSeconds(_attackCooltime);
 
-        _attackRoutine = null;
+            _attackRoutine = null;
+        }
     }
 
     IEnumerator DeadRoutine()
@@ -151,21 +172,9 @@ public class MonsterCtrl : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        gameObject.SetActive(false);
-        _deadCoroutine = null;
+        Destroy(gameObject);
+        //gameObject.SetActive(false);
+        //_collider.enabled = false;
+        //_deadCoroutine = null;
     }
-
-    // 스킬 데미지
-    //private void OnTriggerEnter2D(Collider2D coll)
-    //{
-    //    if (_state == MonsterState.Dead)
-    //        return;
-    //    _state = MonsterState.Dead;
-
-    //    if (coll.CompareTag("Skill"))
-    //    {
-    //        MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
-    //        monster.TakeDamage(_data.Power);
-    //    }
-    //}
 }

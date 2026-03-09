@@ -17,14 +17,14 @@ public class MonsterRenderer : MonoBehaviour
         _anim.SetBool("IsDead", false);
     }
 
-    public void MRMove(Vector2 dir)
+    public void MRMove(Vector2 velocity)
     {
-        _anim.SetTrigger("IsMove");
-
-        if (dir.x >= 0)
+        if (velocity.x > 0)
             _renderer.flipX = false;
-        else
+        if (velocity.x < 0)
             _renderer.flipX = true;
+
+        _anim.SetFloat("MoveSpeed", velocity.magnitude);
     }
 
     public void MRDamage()

@@ -13,19 +13,14 @@ public class PlayerRenderer : MonoBehaviour
         _anim = GetComponent<Animator>();
     }
 
-    public void RIdle(Vector2 dir)
+    public void RMove(Vector2 velocity)
     {
-        _anim.SetBool("IsMove", false);
-    }
-
-    public void RMove(Vector2 dir)
-    {
-        if (dir.x >= 0)
+        if (velocity.x > 0)
             _renderer.flipX = false;
-        else
+        if (velocity.x < 0)
             _renderer.flipX = true;
 
-        _anim.SetBool("IsMove", true);
+        _anim.SetFloat("MoveSpeed", velocity.magnitude);
     }
 
     public void RDamage()
