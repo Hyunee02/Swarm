@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class PlayGame : MonoBehaviour
 {
-    [SerializeField] PlayerCtrl _playerCtrl;
     [SerializeField] LevelManager _levelMgr;
+    [SerializeField] PlayerStats _playerStats;
+    [SerializeField] UIManager _uiMgr;
 
     private void Awake()
     {
-
+        _levelMgr.UpExp += _uiMgr.UpdateExpGage;
+        _playerStats.ChangeHp += _uiMgr.UpdateHpBar;
+        _levelMgr.OnLevelUp += _uiMgr.ActiveLevelUpCanv;
     }
 
     void Start()

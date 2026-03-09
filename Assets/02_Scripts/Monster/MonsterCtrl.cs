@@ -25,8 +25,6 @@ public class MonsterCtrl : MonoBehaviour
     [SerializeField] Xp _xpPrefab;
     [SerializeField] CircleCollider2D _collider;
 
-    [SerializeField] float _attackCooltime;
-
     public MonsterData Data => _data;
 
     Vector2 _dir;
@@ -72,6 +70,7 @@ public class MonsterCtrl : MonoBehaviour
                 break;
 
             case MonsterState.Dead:
+                Stop();
                 break;
 
             default:
@@ -156,14 +155,8 @@ public class MonsterCtrl : MonoBehaviour
 
     IEnumerator AttackRoutine()
     {
-        while (_state == MonsterState.Attack)
-        {
-            _player.TakeDamage(_data.Power);
-
-            yield return new WaitForSeconds(_attackCooltime);
-
-            _attackRoutine = null;
-        }
+        _player.TakeDamage(_data.Power);
+        yield return new WaitForSeconds(_data.AttackCoolTIme);
     }
 
     IEnumerator DeadRoutine()

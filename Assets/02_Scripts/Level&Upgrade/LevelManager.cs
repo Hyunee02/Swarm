@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LevelManager : MonoBehaviour
 {
@@ -21,11 +22,13 @@ public class LevelManager : MonoBehaviour
 
     public int Level => _level;
 
-    public event Action<int> OnLevelUp;
+    public event UnityAction<float, float> UpExp;
+    public event UnityAction OnLevelUp;
 
     public void GetXp(float xp)
     {
         _curXp += xp;
+        UpExp?.Invoke(_curXp, _needXp);
     }
 
     public void LevelUp()
@@ -35,7 +38,7 @@ public class LevelManager : MonoBehaviour
             _level++;
             _curXp -= _needXp;
             _needXp = IncreaseNeedXp(_level);
-            OnLevelUp?.Invoke(_level);
+            OnLevelUp?.Invoke();
         }
     }
 

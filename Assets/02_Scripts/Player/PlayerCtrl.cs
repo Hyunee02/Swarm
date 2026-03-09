@@ -40,7 +40,7 @@ public class PlayerCtrl : MonoBehaviour
             return;
 
         Move();
-        //LimitPlayerPos();
+        LimitPlayerPos();
     }
 
     void GetDir()
@@ -58,14 +58,14 @@ public class PlayerCtrl : MonoBehaviour
         _renderer.RMove(_rigid.velocity);
     }
 
-    //void LimitPlayerPos()
-    //{
-    //    Vector2 playerPos = transform.position;
-    //    playerPos.x = Mathf.Clamp(playerPos.x, -_limit.x, _limit.x);
-    //    playerPos.y = Mathf.Clamp(playerPos.y, -_limit.y, _limit.y);
+    void LimitPlayerPos()
+    {
+        Vector2 playerPos = transform.position;
+        playerPos.x = Mathf.Clamp(playerPos.x, -_limit.x, _limit.x);
+        playerPos.y = Mathf.Clamp(playerPos.y, -_limit.y, _limit.y);
 
-    //    transform.position = playerPos;
-    //}
+        transform.position = playerPos;
+    }
 
     public void TakeDamage(float damage)
     {

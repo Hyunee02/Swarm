@@ -1,9 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "SkillData", menuName = "Data/Skill")]
 public class SkillData : ScriptableObject
 {
-
     [Header("----- BaseStats -----")]
     [SerializeField] float _basePower;
     [SerializeField] float _baseCoolTime;
@@ -16,10 +16,19 @@ public class SkillData : ScriptableObject
     [SerializeField] float _coolTime;
     [SerializeField] float _count;
 
+    [Header("----- Info -----")]
+    [SerializeField] string _name;
+    [SerializeField] string _explain;
+    [SerializeField] Image _iconImage;
+
     public int Level => _level;
+    public int MaxLevel => _maxLevel;
     public float Power => _power;
     public float CoolTime => _coolTime;
     public float Count => _count;
+    public string Name => _name;
+    public string Explain => _explain;
+    public Image IconImage => _iconImage;
 
     public void Init()
     {
@@ -28,5 +37,11 @@ public class SkillData : ScriptableObject
         _power = _basePower;
         _coolTime = _baseCoolTime;
         _count = _baseCount;
+    }
+
+    public void LevelUpSkill()
+    {
+        _level++;
+        Mathf.Clamp(_level, 1, _maxLevel);
     }
 }

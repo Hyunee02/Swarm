@@ -10,11 +10,13 @@ public class MonsterData : ScriptableObject
     [SerializeField] float _speed;
     [SerializeField] float _power;
     [SerializeField] float _xp;
+    [SerializeField] float _attackCooltime;
 
     public float Hp => _hp;
     public float Speed => _speed;
     public float Power => _power;
     public float Xp => _xp;
+    public float AttackCoolTIme => _attackCooltime;
 
     public void Init()
     {

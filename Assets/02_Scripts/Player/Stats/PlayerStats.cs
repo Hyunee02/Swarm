@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class PlayerStats : MonoBehaviour
 
     [Header("----- RunTime -----")]
     [SerializeField] float _hp;
+
+    public event UnityAction<float, float> ChangeHp;
 
     public float Hp
     {
@@ -30,5 +33,6 @@ public class PlayerStats : MonoBehaviour
     {
         _hp -= damage;
         _hp = Mathf.Clamp(_hp, 0, _baseMaxHp);
+        ChangeHp?.Invoke(_hp, _baseMaxHp);
     }
 }

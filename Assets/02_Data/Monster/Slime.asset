@@ -18,3 +18,4 @@ MonoBehaviour:
   _speed: 2
   _power: 10
   _xp: 2
+  _attackCooltime: 2
