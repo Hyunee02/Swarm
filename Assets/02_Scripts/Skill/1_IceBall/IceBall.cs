@@ -19,7 +19,9 @@ public class IceBall : MonoBehaviour
     [Header("----- Active -----")]
     [SerializeField] float _timer;
     [SerializeField] float _activeDuration;
+
     Coroutine _activeRoutine;
+    Tween _activeTween;
 
     private void Awake()
     {
@@ -44,10 +46,10 @@ public class IceBall : MonoBehaviour
 
     void CreateBalls()
     {
-        _angle = 360 / _data.Count;
+        _angle = (360 / _data.Count) * Mathf.Deg2Rad;
 
-        float xPos = Mathf.Cos(_angle * Mathf.Deg2Rad) * _radius;
-        float yPos = Mathf.Sin(_angle * Mathf.Deg2Rad) * _radius;
+        float xPos = Mathf.Cos(_angle) * _radius;
+        float yPos = Mathf.Sin(_angle) * _radius;
 
         for (int i = 0; i < _data.Count; i++)
         {
@@ -62,13 +64,15 @@ public class IceBall : MonoBehaviour
 
     void ActiveBall()
     {
-        _renderer.DOFade(1f, 1f)
-         .SetEase(Ease.Linear)
-         .OnComplete(() => gameObject.SetActive(true));
+        _activeTween = _renderer.DOFade(1f, 1f)
+                .SetEase(Ease.Linear)
+                .OnComplete(() => gameObject.SetActive(true));
     }
 
     IEnumerator DeActiveRoutine()
     {
+        _activeTween.Kill();
+
         if (_activeRoutine != null)
         {
             StopCoroutine(_activeRoutine);
@@ -88,7 +92,7 @@ public class IceBall : MonoBehaviour
 
         yield return new WaitForSeconds(_data.CoolTime);
 
-        ActiveBall();
+        _activeTween.Play();
     }
 
 }

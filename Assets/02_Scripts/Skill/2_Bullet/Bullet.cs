@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.CompareTag("Player"))
+        if (coll.gameObject.CompareTag("Monster"))
         {
             MonsterCtrl monster = coll.gameObject.GetComponent<MonsterCtrl>();
             monster.TakeDamage(_data.Power);

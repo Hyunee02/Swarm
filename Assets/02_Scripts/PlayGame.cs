@@ -5,6 +5,7 @@ public class PlayGame : MonoBehaviour
     [SerializeField] LevelManager _levelMgr;
     [SerializeField] PlayerStats _playerStats;
     [SerializeField] UIManager _uiMgr;
+    [SerializeField] CurrentSkills _currentSkills;
 
     private void Awake()
     {

@@ -7,9 +7,6 @@ public class RotateBalls : MonoBehaviour
     [Header("----- Data -----")]
     [SerializeField] SkillData _data;
 
-    [Header("----- Components -----")]
-    [SerializeField] SpriteRenderer _renderer;
-
     [SerializeField] float _speed;
     [SerializeField] float _rotDuration;
 

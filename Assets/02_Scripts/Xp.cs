@@ -10,6 +10,8 @@ public class Xp : MonoBehaviour
 
     public float xpAmount;
 
+    Tween _moveTween;
+
     public void Initialize(PlayerCtrl player, MonsterCtrl monster, LevelManager levelMgr)
     {
         _player = player;
@@ -22,10 +24,10 @@ public class Xp : MonoBehaviour
         Vector3 playerPos = _player.transform.position;
         Transform xpPos = transform;
 
-        xpPos.DOMove(playerPos, 2f)
-             .SetEase(Ease.InCubic)
-             .SetSpeedBased()
-             .OnComplete(() => Destroy(gameObject));
+        _moveTween = xpPos.DOMove(playerPos, 2f)
+                    .SetEase(Ease.InCubic)
+                    .SetSpeedBased()
+                    .OnComplete(() => Destroy(gameObject));
     }
 
     private void OnTriggerEnter2D(Collider2D coll)
@@ -38,6 +40,7 @@ public class Xp : MonoBehaviour
         if (coll.CompareTag("Player"))
         {
             _levelMgr.GetXp(_monster.Data.Xp);
+            _moveTween.Kill();
         }
     }
 }

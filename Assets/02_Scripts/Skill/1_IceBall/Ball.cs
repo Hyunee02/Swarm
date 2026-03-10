@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class Ball : Bullet
 {
-    [SerializeField] SpriteRenderer _renderer;
+    [SerializeField] CircleCollider2D _collider;
 }

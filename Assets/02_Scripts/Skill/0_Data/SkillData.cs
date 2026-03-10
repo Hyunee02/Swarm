@@ -19,7 +19,7 @@ public class SkillData : ScriptableObject
     [Header("----- Info -----")]
     [SerializeField] string _name;
     [SerializeField] string _explain;
-    [SerializeField] Image _iconImage;
+    [SerializeField] Sprite _iconImage;
 
     public int Level => _level;
     public int MaxLevel => _maxLevel;
@@ -28,7 +28,7 @@ public class SkillData : ScriptableObject
     public float Count => _count;
     public string Name => _name;
     public string Explain => _explain;
-    public Image IconImage => _iconImage;
+    public Sprite IconImage => _iconImage;
 
     public void Init()
     {
