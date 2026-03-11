@@ -21,7 +21,8 @@ public class LevelUpUI : MonoBehaviour
 
     [SerializeField] string[] _stats = { "speed", "hp", "area", "power" };
 
-    List<SkillData> _curSkill;
+    List<SkillData> _curSkills;
+    HashSet<SkillData> _ownedSkills;
     
     UpgradeType _type;
 
@@ -74,28 +75,20 @@ public class LevelUpUI : MonoBehaviour
     public void SelectSkill()
     {
         int rand = Random.Range(0, _skills.Length);
-
-        foreach (var skill in _curSkill)
-        {
-            if (_skills[rand] == skill)
-                return;
-        }
-
         SkillData selectSkill = _skills[rand];
-        _curSkill.Add(selectSkill);
-        _currentSkills.ShowCurrentSkills(_curSkill);
+
+        if (_ownedSkills.Contains(selectSkill))
+            return;
+        else
+        {
+            _ownedSkills.Add(selectSkill);
+            _currentSkills.ShowOwnedSkills(_ownedSkills);
+        }
     }
 
     public void UpgradeSkill()
     {
-        int rand = Random.Range(0, _curSkill.Count);
-
-        foreach (var skill in _curSkill)
-        {
-            if (_skills[rand] != skill)
-                return;
-        }
-
+        int rand = Random.Range(0, _ownedSkills.Count);
         SkillData selectSkill = _skills[rand];
 
         if (selectSkill.Level == selectSkill.MaxLevel)

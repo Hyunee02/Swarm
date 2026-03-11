@@ -6,14 +6,17 @@ public class CurrentSkills : MonoBehaviour
 {
     [SerializeField] Image[] skillImgs;
 
-    public void ShowCurrentSkills(List<SkillData> currentSkill)
+    public void ShowOwnedSkills(HashSet<SkillData> ownedSkills)
     {
-        for (int i = 0; i < currentSkill.Count; i++)
+        foreach (SkillData skill in ownedSkills)
         {
-            Sprite curSkillImg = currentSkill[i].IconImage;
+            Sprite curSkillImg = skill.IconImage;
 
-            skillImgs[i].sprite = curSkillImg;
-            skillImgs[i].enabled = true;
+            for (int i = 0; i < ownedSkills.Count; i++)
+            {
+                skillImgs[i].sprite = curSkillImg;
+                skillImgs[i].enabled = true;
+            }
         }
     }
 }

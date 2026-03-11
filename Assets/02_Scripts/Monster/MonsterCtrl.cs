@@ -44,6 +44,10 @@ public class MonsterCtrl : MonoBehaviour
 
     private void Update()
     {
+        // Å×½ºÆ®
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            TakeDamage(2f);
+
         if (_state == MonsterState.Dead)
             return;
 

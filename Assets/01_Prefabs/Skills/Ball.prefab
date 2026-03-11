@@ -134,4 +134,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 15740506b7bc7cc499b6fbb08634b686, type: 2}
-  _collider: {fileID: 0}
+  _timer: 0
+  _activeDuration: 5
