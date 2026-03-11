@@ -7,13 +7,12 @@ public class IceBall : MonoBehaviour
 {
     [Header("----- Scripts -----")]
     [SerializeField] PlayerCtrl _player;
+    [SerializeField] Ball _ballPrefab;
+
     SkillData _data;
     SpriteRenderer _renderer;
 
-    [SerializeField] Ball _ballPrefab;
-
     [Header("----- Create -----")]
-    [SerializeField] float _angle;
     [SerializeField] float _radius;
 
     [Header("----- Active -----")]
@@ -26,6 +25,7 @@ public class IceBall : MonoBehaviour
     private void Awake()
     {
         _data = GetComponentInChildren<SkillData>();
+        _renderer = GetComponent<SpriteRenderer>();
 
         _data.Init();
         _timer = _activeDuration;
@@ -33,28 +33,23 @@ public class IceBall : MonoBehaviour
 
     private void Start()
     {
-        CreateBalls();
-    }
-
-    private void Update()
-    {
-        ActiveBall();
-
-        if (_activeRoutine == null)
-            _activeRoutine = StartCoroutine(DeActiveRoutine());
+        if (Input.GetKeyDown("Alpha1"))
+        {
+            CreateBalls();
+            _activeRoutine = StartCoroutine(ActiveBallRoutine());
+        }
     }
 
     void CreateBalls()
     {
-        _angle = (360 / _data.Count) * Mathf.Deg2Rad;
-
-        float xPos = Mathf.Cos(_angle) * _radius;
-        float yPos = Mathf.Sin(_angle) * _radius;
+        float angle = 360f / _data.Count;
 
         for (int i = 0; i < _data.Count; i++)
         {
-            Ball ball = Instantiate(_ballPrefab, transform);
+            float xPos = Mathf.Cos(angle) * _radius;
+            float yPos = Mathf.Sin(angle) * _radius;
 
+            Ball ball = Instantiate(_ballPrefab, transform);
             ball.transform.Translate(xPos, yPos, 0);
 
             Vector2 dir = (_player.transform.position - ball.transform.position).normalized;
@@ -62,37 +57,48 @@ public class IceBall : MonoBehaviour
         }
     }
 
-    void ActiveBall()
+    IEnumerator ActiveBallRoutine()
     {
         _activeTween = _renderer.DOFade(1f, 1f)
-                .SetEase(Ease.Linear)
-                .OnComplete(() => gameObject.SetActive(true));
-    }
+                       .SetEase(Ease.Linear);
 
-    IEnumerator DeActiveRoutine()
-    {
+        yield return new WaitForSeconds(_activeDuration);
+
         _activeTween.Kill();
 
-        if (_activeRoutine != null)
-        {
-            StopCoroutine(_activeRoutine);
-            _activeRoutine = null;
-        }
-
-        _timer -= Time.deltaTime;
-
-        if (_timer < 0)
-        {
-            _renderer.DOFade(0f, 1f)
-                     .SetEase(Ease.Linear)
-                     .OnComplete(() => gameObject.SetActive(false));
-
-            _timer = _activeDuration;
-        }
+        _activeTween = _renderer.DOFade(0f, 1f)
+                       .SetEase(Ease.Linear);
 
         yield return new WaitForSeconds(_data.CoolTime);
 
-        _activeTween.Play();
+        _activeTween.Kill();
+
     }
+
+    //IEnumerator DeActiveRoutine()
+    //{
+    //    _activeTween.Kill();
+
+    //    if (_activeRoutine != null)
+    //    {
+    //        StopCoroutine(_activeRoutine);
+    //        _activeRoutine = null;
+    //    }
+
+    //    _timer -= Time.deltaTime;
+
+    //    if (_timer < 0)
+    //    {
+    //        _renderer.DOFade(0f, 1f)
+    //                 .SetEase(Ease.Linear)
+    //                 .OnComplete(() => gameObject.SetActive(false));
+
+    //        _timer = _activeDuration;
+    //    }
+
+    //    yield return new WaitForSeconds(_data.CoolTime);
+
+    //    _activeTween.Play();
+    //}
 
 }
