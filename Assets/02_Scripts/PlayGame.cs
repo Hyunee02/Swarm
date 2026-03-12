@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class PlayGame : MonoBehaviour
 {
-    [SerializeField] LevelManager _levelMgr;
+    [SerializeField] LevelUpStats _levelUpStats;
     [SerializeField] PlayerStats _playerStats;
     [SerializeField] UIManager _uiMgr;
-    [SerializeField] CurrentSkills _currentSkills;
+    [SerializeField] LevelUpUI _levelUpUI;
 
     private void Awake()
     {
-        _levelMgr.UpExp += _uiMgr.UpdateExpGage;
+        _levelUpStats.UpExp += _uiMgr.UpdateExpGage;
         _playerStats.ChangeHp += _uiMgr.UpdateHpBar;
-        _levelMgr.OnLevelUp += _uiMgr.ActiveLevelUpCanv;
+        _levelUpStats.OnLevelUp += _uiMgr.ActiveLevelUpCanv;
+        _levelUpUI.SelectComplete += _uiMgr.DeActiveLevelUpCanv;
     }
 
     void Start()

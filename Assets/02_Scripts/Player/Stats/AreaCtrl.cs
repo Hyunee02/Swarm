@@ -3,7 +3,6 @@ using UnityEngine;
 public class AreaCtrl : MonoBehaviour
 {
     [SerializeField] PlayerStats _stats;
-    [SerializeField] StatCalculator _statCal;
 
     public void Init()
     {
@@ -12,6 +11,6 @@ public class AreaCtrl : MonoBehaviour
 
     void ApplyArea()
     {
-        transform.position.Scale(new Vector2(_statCal.Area, _statCal.Area));
+        transform.position.Scale(new Vector2(_stats.Area, _stats.Area));
     }
 }

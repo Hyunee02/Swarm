@@ -8,7 +8,6 @@ public class PlayerCtrl : MonoBehaviour
     [Header("----- Scripts -----")]
     [SerializeField] PlayerRenderer _renderer;
     [SerializeField] PlayerStats _stats;
-    [SerializeField] StatCalculator _statCal;
     [SerializeField] AreaCtrl _area;
 
     [Header("----- Components -----")]
@@ -26,7 +25,7 @@ public class PlayerCtrl : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CapsuleCollider2D>();
 
-        _statCal.Init();
+        _stats.Init();
     }
 
     private void Start()
@@ -54,7 +53,7 @@ public class PlayerCtrl : MonoBehaviour
     void Move()
     {
         GetDir();
-        _rigid.velocity = _dir * _statCal.Speed;
+        _rigid.velocity = _dir * _stats.Speed;
         _renderer.RMove(_rigid.velocity);
     }
 

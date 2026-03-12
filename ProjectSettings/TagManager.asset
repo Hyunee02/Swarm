@@ -48,10 +48,10 @@ TagManager:
     uniqueID: 3017108391
     locked: 0
   - name: Character
-    uniqueID: 1533922647
+    uniqueID: 1538257729
     locked: 0
   - name: Skill
-    uniqueID: 1538257729
+    uniqueID: 1533922647
     locked: 0
   - name: Monster
     uniqueID: 1912516945

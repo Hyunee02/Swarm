@@ -18,7 +18,7 @@ public class MonsterCtrl : MonoBehaviour
     [SerializeField] PlayerCtrl _player;
     [SerializeField] MonsterData _data;
     [SerializeField] MonsterRenderer _renderer;
-    [SerializeField] LevelManager _levelMgr;
+    [SerializeField] LevelUpStats _levelUpStats;
 
     [Header("----- Components -----")]
     [SerializeField] Rigidbody2D _rigid;
@@ -82,10 +82,10 @@ public class MonsterCtrl : MonoBehaviour
         }
     }
 
-    public void Initialize(PlayerCtrl player, LevelManager levelMgr)
+    public void Initialize(PlayerCtrl player, LevelUpStats levelUpStats)
     {
         _player = player;
-        _levelMgr = levelMgr;
+        _levelUpStats = levelUpStats;
     }
 
     void ChasePlayer()
@@ -119,7 +119,8 @@ public class MonsterCtrl : MonoBehaviour
     void CreateXp()
     {
         Xp xp = Instantiate(_xpPrefab, transform.position, Quaternion.identity);
-        xp.Initialize(_player, this, _levelMgr);
+        xp.Initialize(_player, this, _levelUpStats
+            );
         xp.xpAmount = _data.Xp;
     }
 

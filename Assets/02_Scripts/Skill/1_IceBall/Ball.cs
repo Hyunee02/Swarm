@@ -2,21 +2,14 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball : Bullet
 {
-    [SerializeField] SkillData _data;
-
-    CircleCollider2D _collider;
-    SpriteRenderer _renderer;
-
     [SerializeField] float _activeDuration;
 
     Coroutine _activeRoutine;
     Tween _activeTween;
 
-    public SkillData Data => _data;
-
-    private void Awake()
+    protected override void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
@@ -27,13 +20,9 @@ public class Ball : MonoBehaviour
         _activeRoutine = StartCoroutine(ActiveBallRoutine());
     }
 
-    public void OnTriggerEnter2D(Collider2D coll)
+    protected override void OnTriggerEnter2D(Collider2D coll)
     {
-        if (coll.CompareTag("Monster"))
-        {
-            MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
-            monster.TakeDamage(_data.Power);
-        }
+        base.OnTriggerEnter2D(coll);
     }
 
     IEnumerator ActiveBallRoutine()
@@ -43,12 +32,14 @@ public class Ball : MonoBehaviour
             _activeTween = _renderer.DOFade(1f, 1f)
                .SetEase(Ease.Linear)
                .OnComplete(() => _collider.enabled = true);
+
             yield return new WaitForSeconds(_activeDuration);
             _activeTween.Kill();
 
             _activeTween = _renderer.DOFade(0f, 1f)
                            .SetEase(Ease.Linear)
                            .OnComplete(() => _collider.enabled = false);
+
             yield return new WaitForSeconds(_data.CoolTime);
             _activeTween.Kill();
         }

@@ -2,10 +2,10 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class LevelManager : MonoBehaviour
+public class LevelUpStats : MonoBehaviour
 {
     [Header("----- Scripts -----")]
-    [SerializeField] StatCalculator _statCal;
+    [SerializeField] PlayerStats _stats;
 
     [Header("----- RunTime -----")]
     [SerializeField] int _level;
@@ -31,6 +31,11 @@ public class LevelManager : MonoBehaviour
         UpExp?.Invoke(_curXp, _needXp);
     }
 
+    float IncreaseNeedXp(int level)
+    {
+        return _baseXp * Mathf.Pow(_mul, _level - 1);
+    }
+
     public void LevelUp()
     {
         if (_needXp >= _curXp)
@@ -48,7 +53,7 @@ public class LevelManager : MonoBehaviour
             return;
 
         _speedLv++;
-        _statCal.UpgradeSpeed(_speedLv);
+        _stats.UpgradeSpeed(_speedLv);
     }
 
     public void PickHp()
@@ -57,7 +62,7 @@ public class LevelManager : MonoBehaviour
             return;
 
         _hpLv++;
-        _statCal.UpgradeHp(_hpLv);
+        _stats.UpgradeHp(_hpLv);
     }
 
     public void PickArea()
@@ -66,7 +71,7 @@ public class LevelManager : MonoBehaviour
             return;
 
         _areaLv++;
-        _statCal.UpgradeArea(_areaLv);
+        _stats.UpgradeArea(_areaLv);
     }
 
     public void PickPower()
@@ -75,11 +80,6 @@ public class LevelManager : MonoBehaviour
             return;
 
         _powerLv++;
-        _statCal.UpgradePower(_powerLv);
-    }
-
-    float IncreaseNeedXp(int level)
-    {
-        return _baseXp * Mathf.Pow(_mul, _level - 1);
+        _stats.UpgradePower(_powerLv);
     }
 }

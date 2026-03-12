@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9177384906459462327
+--- !u!1001 &4985070175156260496
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5918154718122428265, guid: ec81c46282aa7ad49a9b26d1e84a7213, type: 3}
       propertyPath: m_Name
-      value: Slime
+      value: Skull
       objectReference: {fileID: 0}
     - target: {fileID: 6066448346939427197, guid: ec81c46282aa7ad49a9b26d1e84a7213, type: 3}
       propertyPath: m_LocalPosition.x

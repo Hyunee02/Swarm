@@ -2,19 +2,20 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.Events;
+
+public enum UpgradeType
+{
+    PlayerStat,
+    Skill,
+    NewSkill,
+    Count
+}
 
 public class LevelUpUI : MonoBehaviour
 {
-    public enum UpgradeType
-    {
-        PlayerStat,
-        Skill,
-        NewSkill,
-        Count
-    }
-
     [Header("----- Scripts -----")]
-    [SerializeField] LevelManager _levelMgr;
+    [SerializeField] LevelUpStats _levelUpStats;
     [SerializeField] CurrentSkills _currentSkills;
     [SerializeField] LevelUpCard[] _cards;
     [SerializeField] SkillData[] _skills;
@@ -23,6 +24,8 @@ public class LevelUpUI : MonoBehaviour
 
     List<SkillData> _curSkills;
     HashSet<SkillData> _ownedSkills;
+
+    public event UnityAction SelectComplete;
     
     UpgradeType _type;
 
@@ -42,6 +45,7 @@ public class LevelUpUI : MonoBehaviour
                 SelectSkill();
                 break;
         }
+        SelectComplete?.Invoke();
     }
 
     public void SelectUpgradeType()
@@ -49,27 +53,22 @@ public class LevelUpUI : MonoBehaviour
         for (int i = 0; i < _cards.Length; i++)
         {
             int rand = Random.Range(0, (int)UpgradeType.Count);
-            _cards[i] = _cards[rand];
-
-
-            
+            _cards[i].Type = (UpgradeType)rand;
         }
-
     }
-
 
     public void SelectStat()
     {
         int rand = Random.Range(0, _stats.Length);
 
         if (rand == 0)
-            _levelMgr.PickSpeed();
+            _levelUpStats.PickSpeed();
         if (rand == 1)
-            _levelMgr.PickHp();
+            _levelUpStats.PickHp();
         if (rand == 2)
-            _levelMgr.PickArea();
+            _levelUpStats.PickArea();
         if (rand == 3)
-            _levelMgr.PickPower();
+            _levelUpStats.PickPower();
     }
 
     public void SelectSkill()
@@ -96,4 +95,6 @@ public class LevelUpUI : MonoBehaviour
 
         selectSkill.LevelUpSkill();
     }
+
+    // 카드 효과
 }

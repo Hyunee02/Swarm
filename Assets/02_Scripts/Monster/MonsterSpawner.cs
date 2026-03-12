@@ -6,7 +6,7 @@ public class MonsterSpawner : MonoBehaviour
     [Header("----- Scripts -----")]
     [SerializeField] PlayerCtrl _player;
     [SerializeField] MonsterCtrl _monsterPrefab;
-    [SerializeField] LevelManager _levelMgr;
+    [SerializeField] LevelUpStats _levelUpStats;
     // ≈∏¿Ã∏”
 
     [SerializeField] float _spawnSpan;
@@ -36,7 +36,7 @@ public class MonsterSpawner : MonoBehaviour
             return;
 
         MonsterCtrl monster = Instantiate(_monsterPrefab, transform);
-        monster.Initialize(_player, _levelMgr);
+        monster.Initialize(_player, _levelUpStats);
         Vector2 pos = GetSpawnPosition();
         monster.transform.position = pos;
     }

@@ -20,5 +20,12 @@ public class UIManager : MonoBehaviour
     public void ActiveLevelUpCanv()
     {
         _levelUpCanvas.enabled = true;
+        Time.timeScale = 0;
+    }
+
+    public void DeActiveLevelUpCanv()
+    {
+        _levelUpCanvas.enabled = false;
+        Time.timeScale = 1f;
     }
 }

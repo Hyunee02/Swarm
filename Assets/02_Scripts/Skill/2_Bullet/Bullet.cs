@@ -3,38 +3,24 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [Header("----- Scripts -----")]
-    [SerializeField] SkillData _data;
-    [SerializeField] Transform _player;
+    [SerializeField] protected SkillData _data;
+    protected Collider2D _collider;
+    protected SpriteRenderer _renderer;
 
-    [SerializeField] float _radius;
-    [SerializeField] MonsterCtrl _target;
+    public SkillData Data => _data;
 
-    LayerMask layerMask;
-
-    HashSet<Collider2D> _monsters;
-
-    public void FindNearMonster()
+    protected virtual void Awake()
     {
-        for (int i = 0; i < 5; i++)
-        {
-            Collider2D monster = Physics2D.OverlapCircle(transform.position, _radius);
-            _monsters.Add(monster);
-        }
-
-        foreach (Collider2D monster in _monsters)
-        {
-            if (monster == null)
-                continue;
-
-            float dist = (_player.position - monster.transform.position).magnitude;
-            float minDist = dist;
-
-            if (dist < minDist)
-                minDist = dist;
-
-            
-        }
+        _collider = GetComponent<CapsuleCollider2D>();
+        _renderer = GetComponent<SpriteRenderer>();
     }
 
+    protected virtual void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (coll.CompareTag("Monster"))
+        {
+            MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
+            monster.TakeDamage(_data.Power);
+        }
+    }
 }

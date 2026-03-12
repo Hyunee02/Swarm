@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1a599d502aadf8459534aaf9e3df6ca, type: 3}
-  m_Name: IceBall
+  m_Name: DarkBullet
   m_EditorClassIdentifier: 
-  _basePower: 5
-  _baseCoolTime: 3
-  _baseCount: 5
-  _maxLevel: 5
+  _basePower: 0
+  _baseCoolTime: 0
+  _baseCount: 0
+  _maxLevel: 0
   _level: 1
   _power: 5
   _coolTime: 3
-  _count: 3
-  _name: Ice Ball
-  _explain: Upgrade Ice Ball
-  _iconImage: {fileID: 21300000, guid: 716ef2b0c87557842843835841497125, type: 3}
+  _count: 0
+  _name: Bullet
+  _explain: Bullet
+  _iconImage: {fileID: 21300000, guid: 38663a0d2e810604e9cda15373d92e16, type: 3}

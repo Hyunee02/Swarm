@@ -11,7 +11,6 @@ public class IceBall : MonoBehaviour
     SkillData _data;
 
     [SerializeField] float _radius;
-    [SerializeField] float _rotDuration;
 
     private void Awake()
     {
@@ -19,12 +18,10 @@ public class IceBall : MonoBehaviour
         _data.Init();
     }
 
-    private void Start()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             CreateBalls();
-
-        RotateBall();
     }
 
     void CreateBalls()
@@ -33,21 +30,15 @@ public class IceBall : MonoBehaviour
 
         for (int i = 0; i < _data.Count; i++)
         {
+            Ball ball = Instantiate(_ballPrefab, transform);
+
             float xPos = Mathf.Cos(i * angle * Mathf.Deg2Rad) * _radius;
             float yPos = Mathf.Sin(i * angle * Mathf.Deg2Rad) * _radius;
 
-            Ball ball = Instantiate(_ballPrefab, transform);
-            ball.transform.localScale = new Vector2(xPos, yPos);
+            ball.transform.localPosition = new Vector2(xPos, yPos);
 
-            Vector2 dir = (_player.transform.position - ball.transform.position).normalized;
+            Vector2 dir = (ball.transform.position - _player.transform.position).normalized;
             ball.transform.up = dir;
         }
-    }
-
-    void RotateBall()
-    {
-        transform.DORotate(new Vector3(0, 0, -360), _rotDuration, RotateMode.Fast)
-                 .SetLoops(-1, LoopType.Restart)
-                 .SetEase(Ease.Linear);
     }
 }

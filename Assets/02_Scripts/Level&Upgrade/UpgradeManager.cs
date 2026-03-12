@@ -3,7 +3,7 @@ using UnityEngine;
 public class UpgradeManager : MonoBehaviour
 {
     [Header("----- Scripts -----")]
-    [SerializeField] LevelManager _levelMgr;
+    [SerializeField] LevelUpStats _levelUpStats;
     [SerializeField] LevelUpUI _levelUI;
 
     private void OnEnable()

@@ -6,17 +6,17 @@ public class Xp : MonoBehaviour
     [Header("----- Scripts -----")]
     [SerializeField] PlayerCtrl _player;
     [SerializeField] MonsterCtrl _monster;
-    [SerializeField] LevelManager _levelMgr;
+    [SerializeField] LevelUpStats _levelUpStats;
 
     public float xpAmount;
 
     Tween _moveTween;
 
-    public void Initialize(PlayerCtrl player, MonsterCtrl monster, LevelManager levelMgr)
+    public void Initialize(PlayerCtrl player, MonsterCtrl monster, LevelUpStats levelUpStats)
     {
         _player = player;
         _monster = monster;
-        _levelMgr = levelMgr;
+        _levelUpStats = levelUpStats;
     }
 
     public void XpMove()
@@ -39,7 +39,7 @@ public class Xp : MonoBehaviour
 
         if (coll.CompareTag("Player"))
         {
-            _levelMgr.GetXp(_monster.Data.Xp);
+            _levelUpStats.GetXp(_monster.Data.Xp);
             _moveTween.Kill();
         }
     }
