@@ -8419,7 +8419,7 @@ GameObject:
   - component: {fileID: 1064428151}
   - component: {fileID: 1064428152}
   m_Layer: 0
-  m_Name: Balls
+  m_Name: IcaBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8438,7 +8438,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1128457863}
+  m_Father: {fileID: 1238153788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1064428152
 MonoBehaviour:
@@ -8455,6 +8455,7 @@ MonoBehaviour:
   _player: {fileID: 71863497}
   _ballPrefab: {fileID: 5409233042129886574, guid: f89a515f1a2ba224697118b1484db074, type: 3}
   _radius: 5
+  _rotDuration: 5
 --- !u!1 &1067160083
 GameObject:
   m_ObjectHideFlags: 0
@@ -9786,54 +9787,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113724881}
   m_CullTransparentMesh: 1
---- !u!1 &1128457862
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1128457863}
-  - component: {fileID: 1128457864}
-  m_Layer: 0
-  m_Name: IceBall
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1128457863
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128457862}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1064428151}
-  m_Father: {fileID: 1238153788}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1128457864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128457862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53831a39912dee647b217f9946fb0079, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 15740506b7bc7cc499b6fbb08634b686, type: 2}
-  _speed: 3
-  _rotDuration: 0
 --- !u!1 &1217696491
 GameObject:
   m_ObjectHideFlags: 0
@@ -9938,7 +9891,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1128457863}
+  - {fileID: 1064428151}
   - {fileID: 452841156}
   m_Father: {fileID: 71863496}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

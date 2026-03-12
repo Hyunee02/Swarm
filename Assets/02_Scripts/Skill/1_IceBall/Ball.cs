@@ -9,18 +9,17 @@ public class Ball : MonoBehaviour
     CircleCollider2D _collider;
     SpriteRenderer _renderer;
 
-    [SerializeField] float _timer;
     [SerializeField] float _activeDuration;
 
     Coroutine _activeRoutine;
     Tween _activeTween;
 
+    public SkillData Data => _data;
+
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
         _collider = GetComponent<CircleCollider2D>();
-
-        _timer = _activeDuration;
     }
 
     private void Start()
@@ -39,16 +38,19 @@ public class Ball : MonoBehaviour
 
     IEnumerator ActiveBallRoutine()
     {
-        _activeTween = _renderer.DOFade(1f, 1f)
-                       .SetEase(Ease.Linear)
-                       .OnComplete(() => _collider.enabled = true);
-        yield return new WaitForSeconds(_activeDuration);
-        _activeTween.Kill();
+        while (true)
+        {
+            _activeTween = _renderer.DOFade(1f, 1f)
+               .SetEase(Ease.Linear)
+               .OnComplete(() => _collider.enabled = true);
+            yield return new WaitForSeconds(_activeDuration);
+            _activeTween.Kill();
 
-        _activeTween = _renderer.DOFade(0f, 1f)
-                       .SetEase(Ease.Linear)
-                       .OnComplete(() => _collider.enabled = false);
-        yield return new WaitForSeconds(_data.CoolTime);
-        _activeTween.Kill();
+            _activeTween = _renderer.DOFade(0f, 1f)
+                           .SetEase(Ease.Linear)
+                           .OnComplete(() => _collider.enabled = false);
+            yield return new WaitForSeconds(_data.CoolTime);
+            _activeTween.Kill();
+        }
     }
 }
