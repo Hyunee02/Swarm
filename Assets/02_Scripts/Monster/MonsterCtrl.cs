@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent (typeof(CircleCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class MonsterCtrl : MonoBehaviour
 {
     public enum MonsterState
@@ -23,7 +23,7 @@ public class MonsterCtrl : MonoBehaviour
     [Header("----- Components -----")]
     [SerializeField] Rigidbody2D _rigid;
     [SerializeField] Xp _xpPrefab;
-    [SerializeField] CircleCollider2D _collider;
+    [SerializeField] Collider2D _collider;
 
     public MonsterData Data => _data;
 
@@ -37,7 +37,7 @@ public class MonsterCtrl : MonoBehaviour
     {
         _rigid = GetComponent<Rigidbody2D>();
         _renderer = GetComponentInChildren<MonsterRenderer>();
-        _collider = GetComponent<CircleCollider2D>();
+        _collider = GetComponent<Collider2D>();
 
         _data.Init();
     }

@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] TMP_Text _timerText;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] float _timer;
+
+    private void Update()
     {
-        
+        _timer = Time.deltaTime;
     }
 }

@@ -22,7 +22,11 @@ public class Ball : Bullet
 
     protected override void OnTriggerEnter2D(Collider2D coll)
     {
-        base.OnTriggerEnter2D(coll);
+        if (coll.CompareTag("Monster"))
+        {
+            MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
+            monster.TakeDamage(_data.Power);
+        }
     }
 
     IEnumerator ActiveBallRoutine()

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Slime
   m_EditorClassIdentifier: 
   _maxHp: 6
-  _hp: 6
-  _baseSpeed: 2
-  _speed: 2
-  _power: 10
+  _hp: 0
+  _speed: 1.5
+  _power: 3
   _xp: 2
-  _attackCooltime: 2
+  _attackCooltime: 0
+  _spawnTime: 0
+  _spawnDuration: 360

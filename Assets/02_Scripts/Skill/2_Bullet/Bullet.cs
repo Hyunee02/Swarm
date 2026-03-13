@@ -21,6 +21,7 @@ public class Bullet : MonoBehaviour
         {
             MonsterCtrl monster = coll.GetComponent<MonsterCtrl>();
             monster.TakeDamage(_data.Power);
+            Destroy(gameObject);
         }
     }
 }

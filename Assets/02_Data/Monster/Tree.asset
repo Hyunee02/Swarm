@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1a7405beed11754bae9cf9a01a4a626, type: 3}
-  m_Name: Skull
+  m_Name: Tree
   m_EditorClassIdentifier: 
-  _maxHp: 10
+  _maxHp: 0
   _hp: 0
-  _speed: 1
-  _power: 4
-  _xp: 3
+  _speed: 0
+  _power: 0
+  _xp: 0
   _attackCooltime: 0
-  _spawnTime: 240
-  _spawnDuration: 600
+  _spawnTime: 0
+  _spawnDuration: 0
